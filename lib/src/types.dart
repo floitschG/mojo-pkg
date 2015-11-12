@@ -43,52 +43,32 @@ class MojoResult {
   static const BUSY = const MojoResult._(kBusy);
   static const SHOULD_WAIT = const MojoResult._(kShouldWait);
 
+  static const _values = const <MojoResult>[
+    OK,
+    CANCELLED,
+    UNKNOWN,
+    INVALID_ARGUMENT,
+    DEADLINE_EXCEEDED,
+    NOT_FOUND,
+    ALREADY_EXISTS,
+    PERMISSION_DENIED,
+    RESOURCE_EXHAUSTED,
+    FAILED_PRECONDITION,
+    ABORTED,
+    OUT_OF_RANGE,
+    UNIMPLEMENTED,
+    INTERNAL,
+    UNAVAILABLE,
+    DATA_LOSS,
+    BUSY,
+    SHOULD_WAIT,
+  ];
+
   final int value;
 
   const MojoResult._(this.value);
 
-  factory MojoResult(int value) {
-    switch (value) {
-      case kOk:
-        return OK;
-      case kCancelled:
-        return CANCELLED;
-      case kUnknown:
-        return UNKNOWN;
-      case kInvalidArgument:
-        return INVALID_ARGUMENT;
-      case kDeadlineExceeded:
-        return DEADLINE_EXCEEDED;
-      case kNotFound:
-        return NOT_FOUND;
-      case kAlreadyExists:
-        return ALREADY_EXISTS;
-      case kPermissionDenied:
-        return PERMISSION_DENIED;
-      case kResourceExhausted:
-        return RESOURCE_EXHAUSTED;
-      case kFailedPrecondition:
-        return FAILED_PRECONDITION;
-      case kAborted:
-        return ABORTED;
-      case kOutOfRange:
-        return OUT_OF_RANGE;
-      case kUnimplemented:
-        return UNIMPLEMENTED;
-      case kInternal:
-        return INTERNAL;
-      case kUnavailable:
-        return UNAVAILABLE;
-      case kDataLoss:
-        return DATA_LOSS;
-      case kBusy:
-        return BUSY;
-      case kShouldWait:
-        return SHOULD_WAIT;
-      default:
-        throw 'Invalid Mojo result';
-    }
-  }
+  factory MojoResult(int value) => _values[value];
 
   bool get isOk => (this == OK);
   bool get isCancelled => (this == CANCELLED);
@@ -154,12 +134,14 @@ class MojoResult {
 }
 
 class MojoHandleSignals {
-  static const int kNone = 0;
-  static const int kReadable = 1 << 0;
-  static const int kWritable = 1 << 1;
-  static const int kPeerClosed = 1 << 2;
-  static const int kReadWrite = kReadable | kWritable;
-  static const int kAll = kReadable | kWritable | kPeerClosed;
+  static const int kNone = 0x0;
+  static const int kReadable = 0x1;
+  static const int kWritable = 0x2;
+  static const int kReadWrite = 0x3;
+  static const int kPeerClosed = 0x4;
+  static const int kPeerClosedReadable = 0x5;
+  static const int kPeerClosedWritable = 0x6;
+  static const int kAll = 0x7;
   static const int kBitfieldSize = 3;
 
   static const NONE = const MojoHandleSignals._(kNone);
@@ -167,39 +149,28 @@ class MojoHandleSignals {
   static const WRITABLE = const MojoHandleSignals._(kWritable);
   static const PEER_CLOSED = const MojoHandleSignals._(kPeerClosed);
   static const PEER_CLOSED_READABLE =
-      const MojoHandleSignals._(kPeerClosed | kReadable);
+      const MojoHandleSignals._(kPeerClosedReadable);
   static const READWRITE = const MojoHandleSignals._(kReadWrite);
   static const PEER_CLOSED_WRITABLE =
-      const MojoHandleSignals._(kPeerClosed | kWritable);
+      const MojoHandleSignals._(kPeerClosedWritable);
   static const ALL = const MojoHandleSignals._(kAll);
 
+  static const _values = const <MojoHandleSignals>[
+    NONE,  // 0
+    READABLE,  // 1
+    WRITABLE,  // 2
+    READWRITE, // 3
+    PEER_CLOSED,  // 4
+    PEER_CLOSED_READABLE,  // 5
+    PEER_CLOSED_WRITABLE,  // 6
+    ALL,  // 7
+  ];
 
   final int value;
 
   const MojoHandleSignals._(this.value);
 
-  factory MojoHandleSignals(int value) {
-    switch (value) {
-      case kNone:
-        return NONE;
-      case kReadable:
-        return READABLE;
-      case kWritable:
-        return WRITABLE;
-      case kPeerClosed:
-        return PEER_CLOSED;
-      case kReadWrite:
-        return READWRITE;
-      case kPeerClosed | kReadable:
-        return PEER_CLOSED_READABLE;
-      case kPeerClosed | kWritable:
-        return PEER_CLOSED_WRITABLE;
-      case kAll:
-        return ALL;
-      default:
-        throw 'Invalid handle signal: $value';
-    }
-  }
+  factory MojoHandleSignals(int value) => _values[value];
 
   bool get isNone => (this == NONE);
   bool get isReadable => (value & kReadable) == kReadable;

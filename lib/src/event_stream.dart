@@ -27,10 +27,9 @@ class MojoEventSubscription {
       : _handle = handle,
         _signals = signals,
         _isSubscribed = false {
-    MojoResult result = MojoHandle.registerFinalizer(this);
-    if (!result.isOk) {
+    if (!MojoHandle.registerFinalizer(this)) {
       throw new MojoInternalError(
-          "Failed to register the MojoHandle: $result.");
+          "Failed to register the MojoHandle.");
     }
   }
 
@@ -43,7 +42,7 @@ class MojoEventSubscription {
     _receivePort = new RawReceivePort(handler);
     _sendPort = _receivePort.sendPort;
 
-    if (_signals != MojoHandleSignals.NONE) {
+    if (_signals.value != MojoHandleSignals.kNone) {
       int res = MojoHandleWatcher.add(_handle.h, _sendPort, _signals.value);
       if (res != MojoResult.kOk) {
         throw new MojoInternalError("MojoHandleWatcher add failed: $res");

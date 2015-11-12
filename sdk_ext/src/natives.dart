@@ -16,7 +16,7 @@ class MojoCoreNatives {
 }
 
 class MojoHandleNatives {
-  static Map<int, _OpenHandle> _openHandles = new Map();
+  static HashMap<int, _OpenHandle> _openHandles = new HashMap();
 
   static void addOpenHandle(int handle, {String description}) {
     // We only remember a stack trace when in checked mode.

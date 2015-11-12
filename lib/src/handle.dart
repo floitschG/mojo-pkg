@@ -80,9 +80,9 @@ class MojoHandle {
     return new MojoWaitManyResult(new MojoResult(result[0]), result[1], states);
   }
 
-  static MojoResult registerFinalizer(MojoEventSubscription eventSubscription) {
-    return new MojoResult(MojoHandleNatives.registerFinalizer(
-        eventSubscription, eventSubscription._handle.h));
+  static bool registerFinalizer(MojoEventSubscription eventSubscription) {
+    return MojoHandleNatives.registerFinalizer(
+        eventSubscription, eventSubscription._handle.h) == MojoResult.kOk;
   }
 
   static bool reportLeakedHandles() => MojoHandleNatives.reportOpenHandles();

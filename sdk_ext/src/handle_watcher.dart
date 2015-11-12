@@ -34,11 +34,10 @@ class MojoHandleWatcher {
   static const int kMojoResultDeadlineExceeded = 4;
   static const int kMojoResultFailedPrecondition = 9;
 
-  static const int kMojoSignalsReadable = (1 << 0);
-  static const int kMojoSignalsWritable = (1 << 1);
-  static const int kMojoSignalsPeerClosed = (1 << 2);
-  static const int kMojoSignalsAll =
-      kMojoSignalsReadable | kMojoSignalsWritable | kMojoSignalsPeerClosed;
+  static const int kMojoSignalsReadable = 0x1;
+  static const int kMojoSignalsWritable = 0x2;
+  static const int kMojoSignalsPeerClosed = 0x4;
+  static const int kMojoSignalsAll = 0x7;
 
   static int _encodeCommand(int cmd, [int signals = 0]) =>
       (cmd << 3) | (signals & kMojoSignalsAll);
