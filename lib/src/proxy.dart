@@ -86,7 +86,7 @@ abstract class Proxy extends core.MojoEventHandler {
     var serviceMessage = message.serializeWithHeader(header);
     endpoint.write(serviceMessage.buffer, serviceMessage.buffer.lengthInBytes,
         serviceMessage.handles);
-    if (!endpoint.status.isOk) {
+    if (endpoint.status != core.MojoResult.kOk) {
       proxyError("Write to message pipe endpoint failed.");
     }
   }
@@ -109,11 +109,11 @@ abstract class Proxy extends core.MojoEventHandler {
     endpoint.write(serviceMessage.buffer, serviceMessage.buffer.lengthInBytes,
         serviceMessage.handles);
 
-    if (endpoint.status.isOk) {
+    if (endpoint.status == core.MojoResult.kOk) {
       _completerMap[id] = completer;
       _pendingCount++;
     } else {
-      proxyError("Write to message pipe endpoint failed.");
+      proxyError("Write to message pipe endpoint failed: ${endpoint}");
     }
     return completer.future;
   }
