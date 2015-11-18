@@ -7,14 +7,12 @@ part of core;
 class DataPipeDrainer {
   MojoDataPipeConsumer _consumer;
   MojoEventSubscription _eventSubscription;
-  List<ByteData> _dataList;
-  int _dataSize;
+  List<ByteData> _dataList = new List<ByteData>();
+  int _dataSize = 0;
 
-  DataPipeDrainer(this._consumer) {
-    _eventSubscription = new MojoEventSubscription(_consumer.handle);
-    _dataList = new List();
-    _dataSize = 0;
-  }
+  DataPipeDrainer(MojoDataPipeConsumer consumer)
+      : _consumer = consumer,
+        _eventSubscription = new MojoEventSubscription(consumer.handle);
 
   ByteData _copy(ByteData byteData) => new ByteData.view(
       new Uint8List.fromList(byteData.buffer.asUint8List()).buffer);

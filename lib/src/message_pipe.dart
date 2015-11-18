@@ -84,8 +84,13 @@ class MojoMessagePipeEndpoint {
     }
 
     // handles may be null, otherwise convert to ints.
-    List<int> mojoHandles =
-        (handles != null) ? handles.map((h) => h.h).toList() : null;
+    List<int> mojoHandles;
+    if (handles != null) {
+      mojoHandles = new List<int>(handles.length);
+      for (int i = 0; i < handles.length; i++) {
+        mojoHandles[i] = handles[i].h;
+      }
+    }
 
     // Do the call.
     status = MojoMessagePipeNatives.MojoWriteMessage(

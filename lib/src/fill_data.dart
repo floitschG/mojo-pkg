@@ -8,12 +8,12 @@ class DataPipeFiller {
   final MojoDataPipeProducer _producer;
   final ByteData _data;
   MojoEventSubscription _eventSubscription;
-  int _dataPosition;
+  int _dataPosition = 0;
 
-  DataPipeFiller(this._producer, this._data) {
-    _eventSubscription = new MojoEventSubscription(_producer.handle);
-    _dataPosition = 0;
-  }
+  DataPipeFiller(MojoDataPipeProducer producer, ByteData data)
+      : _producer = producer,
+        _data = data,
+        _eventSubscription = new MojoEventSubscription(producer.handle);
 
   int _doWrite() {
     ByteData view = new ByteData.view(

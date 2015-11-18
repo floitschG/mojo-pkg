@@ -11,7 +11,7 @@ class ProxyError {
 }
 
 abstract class Proxy extends core.MojoEventHandler {
-  Map<int, Completer> _completerMap = {};
+  HashMap<int, Completer> _completerMap = new HashMap<int, Completer>();
   Completer _errorCompleter = new Completer();
   Set<Completer> _errorCompleters;
   int _nextId = 0;
@@ -119,7 +119,7 @@ abstract class Proxy extends core.MojoEventHandler {
   }
 
   // Need a getter for this for access in subclasses.
-  Map<int, Completer> get completerMap => _completerMap;
+  HashMap<int, Completer> get completerMap => _completerMap;
 
   String toString() {
     var superString = super.toString();

@@ -570,11 +570,11 @@ class Decoder {
   Message _message;
   int _base = 0;
 
-  Decoder(this._message, [this._base = 0, this._validator = null]) {
-    if (_validator == null) {
-      _validator = new _Validator(_message.dataLength, _message.handlesLength);
-    }
-  }
+  Decoder(Message message, [this._base = 0, _Validator validator = null])
+      : _message = message,
+        _validator = (validator == null)
+            ? new _Validator(message.dataLength, message.handlesLength)
+            : validator;
 
   Decoder getDecoderAtPosition(int offset) =>
       new Decoder(_message, offset, _validator);
@@ -586,10 +586,16 @@ class Decoder {
   List<core.MojoHandle> get _handles => _message.handles;
   List<core.MojoHandle> get excessHandles {
     if (_message.handlesLength == 0) return null;
-    var leftAtEnd = _message.handles
-        .getRange(_validator._minNextClaimedHandle, _message.handlesLength);
-    var skipped = _validator._skippedIndices.map((i) => _message.handles[i]);
-    return new List.from(leftAtEnd)..addAll(skipped);
+    List<core.MojoHandle> handles = new List();
+    for (int i = _validator._minNextClaimedHandle;
+        i < _message.handlesLength;
+        i++) {
+      handles.add(_message.handles[i]);
+    }
+    for (int i = 0; i < _validator._skippedIndices.length; i++) {
+      handles.add(_message.handles[_validator._skippedIndices[i]]);
+    }
+    return handles;
   }
 
   int decodeInt8(int offset) => _buffer.getInt8(_base + offset);

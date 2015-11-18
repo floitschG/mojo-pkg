@@ -126,9 +126,9 @@ class MojoEventHandler {
     beginHandlingEvents();
   }
 
-  MojoEventHandler.fromHandle(MojoHandle handle) {
-    _endpoint = new MojoMessagePipeEndpoint(handle);
-    _eventSubscription = new MojoEventSubscription(handle);
+  MojoEventHandler.fromHandle(MojoHandle handle)
+      : _endpoint = new MojoMessagePipeEndpoint(handle),
+        _eventSubscription = new MojoEventSubscription(handle) {
     beginHandlingEvents();
   }
 
