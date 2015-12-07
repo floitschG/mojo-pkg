@@ -85,9 +85,7 @@ class ServiceProviderConnectToServiceParams extends bindings.Struct {
 }
 
 const int kServiceProvider_connectToService_name = 0;
-
-const String ServiceProviderName =
-      'mojo::ServiceProvider';
+const String ServiceProviderName = null;
 
 abstract class ServiceProvider {
   void connectToService(String interfaceName, core.MojoMessagePipeEndpoint pipe);

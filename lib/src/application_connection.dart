@@ -94,6 +94,7 @@ class ApplicationConnection {
 
   void provideService(String interfaceName, ServiceFactory factory) {
     assert(_localServiceProvider != null);
+    assert(interfaceName != null);
     _nameToServiceFactory[interfaceName] = factory;
   }
 

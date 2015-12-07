@@ -161,9 +161,7 @@ class ApplicationConnectorDuplicateParams extends bindings.Struct {
 
 const int kApplicationConnector_connectToApplication_name = 0;
 const int kApplicationConnector_duplicate_name = 1;
-
-const String ApplicationConnectorName =
-      'mojo::ApplicationConnector';
+const String ApplicationConnectorName = null;
 
 abstract class ApplicationConnector {
   void connectToApplication(String applicationUrl, Object services, Object exposedServices);

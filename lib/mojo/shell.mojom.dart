@@ -162,9 +162,7 @@ class ShellCreateApplicationConnectorParams extends bindings.Struct {
 
 const int kShell_connectToApplication_name = 0;
 const int kShell_createApplicationConnector_name = 1;
-
-const String ShellName =
-      'mojo::Shell';
+const String ShellName = null;
 
 abstract class Shell {
   void connectToApplication(String applicationUrl, Object services, Object exposedServices);
