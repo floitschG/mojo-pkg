@@ -373,9 +373,9 @@ class ApplicationProxy implements bindings.ProxyBase {
   }
 
   factory ApplicationProxy.connectToService(
-      bindings.ServiceConnector s, String url) {
+      bindings.ServiceConnector s, String url, [String serviceName]) {
     ApplicationProxy p = new ApplicationProxy.unbound();
-    s.connectToService(url, p);
+    s.connectToService(url, p, serviceName);
     return p;
   }
 

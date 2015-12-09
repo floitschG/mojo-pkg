@@ -170,9 +170,9 @@ class ServiceProviderProxy implements bindings.ProxyBase {
   }
 
   factory ServiceProviderProxy.connectToService(
-      bindings.ServiceConnector s, String url) {
+      bindings.ServiceConnector s, String url, [String serviceName]) {
     ServiceProviderProxy p = new ServiceProviderProxy.unbound();
-    s.connectToService(url, p);
+    s.connectToService(url, p, serviceName);
     return p;
   }
 

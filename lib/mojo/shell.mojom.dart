@@ -259,9 +259,9 @@ class ShellProxy implements bindings.ProxyBase {
   }
 
   factory ShellProxy.connectToService(
-      bindings.ServiceConnector s, String url) {
+      bindings.ServiceConnector s, String url, [String serviceName]) {
     ShellProxy p = new ShellProxy.unbound();
-    s.connectToService(url, p);
+    s.connectToService(url, p, serviceName);
     return p;
   }
 

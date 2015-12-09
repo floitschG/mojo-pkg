@@ -258,9 +258,9 @@ class ApplicationConnectorProxy implements bindings.ProxyBase {
   }
 
   factory ApplicationConnectorProxy.connectToService(
-      bindings.ServiceConnector s, String url) {
+      bindings.ServiceConnector s, String url, [String serviceName]) {
     ApplicationConnectorProxy p = new ApplicationConnectorProxy.unbound();
-    s.connectToService(url, p);
+    s.connectToService(url, p, serviceName);
     return p;
   }
 
