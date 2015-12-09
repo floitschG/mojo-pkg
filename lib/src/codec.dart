@@ -295,9 +295,9 @@ class Encoder {
       encodeUint32(value.value, offset);
 
   void encodeNestedUnion(Union value, int offset, bool nullable) {
-    _buffer.claimMemory(align(kUnionSize));
     encodePointerToNextUnclaimed(offset);
     var encoder = new Encoder._fromBuffer(_buffer);
+    _buffer.claimMemory(align(kUnionSize));
     encoder.encodeUnion(value, 0, nullable);
   }
 
