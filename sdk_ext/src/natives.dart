@@ -13,6 +13,7 @@ class _OpenHandle {
 
 class MojoCoreNatives {
   static int getTimeTicksNow() native "Mojo_GetTimeTicksNow";
+  static int timerMillisecondClock() => getTimeTicksNow() ~/ 1000;
 }
 
 class MojoHandleNatives {
