@@ -8,8 +8,8 @@ import 'dart:async';
 
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:mojo/core.dart' as core;
-const kRunMessageId = 0xFFFFFFFF;
-const kRunOrClosePipeMessageId = 0xFFFFFFFE;
+const int kRunMessageId = 0xFFFFFFFF;
+const int kRunOrClosePipeMessageId = 0xFFFFFFFE;
 
 
 
