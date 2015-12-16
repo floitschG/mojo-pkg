@@ -13,16 +13,16 @@ const String serviceDescriberInterfaceName = "_ServiceDescriber";
 
 
 
-class ServiceDescriberDescribeServiceParams extends bindings.Struct {
+class _ServiceDescriberDescribeServiceParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   String interfaceName = null;
   Object descriptionRequest = null;
 
-  ServiceDescriberDescribeServiceParams() : super(kVersions.last.size);
+  _ServiceDescriberDescribeServiceParams() : super(kVersions.last.size);
 
-  static ServiceDescriberDescribeServiceParams deserialize(bindings.Message message) {
+  static _ServiceDescriberDescribeServiceParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     if (decoder.excessHandles != null) {
@@ -31,11 +31,11 @@ class ServiceDescriberDescribeServiceParams extends bindings.Struct {
     return result;
   }
 
-  static ServiceDescriberDescribeServiceParams decode(bindings.Decoder decoder0) {
+  static _ServiceDescriberDescribeServiceParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    ServiceDescriberDescribeServiceParams result = new ServiceDescriberDescribeServiceParams();
+    _ServiceDescriberDescribeServiceParams result = new _ServiceDescriberDescribeServiceParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -75,7 +75,7 @@ class ServiceDescriberDescribeServiceParams extends bindings.Struct {
   }
 
   String toString() {
-    return "ServiceDescriberDescribeServiceParams("
+    return "_ServiceDescriberDescribeServiceParams("
            "interfaceName: $interfaceName" ", "
            "descriptionRequest: $descriptionRequest" ")";
   }
@@ -87,14 +87,14 @@ class ServiceDescriberDescribeServiceParams extends bindings.Struct {
 }
 
 
-class ServiceDescriptionGetTopLevelInterfaceParams extends bindings.Struct {
+class _ServiceDescriptionGetTopLevelInterfaceParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
   ];
 
-  ServiceDescriptionGetTopLevelInterfaceParams() : super(kVersions.last.size);
+  _ServiceDescriptionGetTopLevelInterfaceParams() : super(kVersions.last.size);
 
-  static ServiceDescriptionGetTopLevelInterfaceParams deserialize(bindings.Message message) {
+  static _ServiceDescriptionGetTopLevelInterfaceParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     if (decoder.excessHandles != null) {
@@ -103,11 +103,11 @@ class ServiceDescriptionGetTopLevelInterfaceParams extends bindings.Struct {
     return result;
   }
 
-  static ServiceDescriptionGetTopLevelInterfaceParams decode(bindings.Decoder decoder0) {
+  static _ServiceDescriptionGetTopLevelInterfaceParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    ServiceDescriptionGetTopLevelInterfaceParams result = new ServiceDescriptionGetTopLevelInterfaceParams();
+    _ServiceDescriptionGetTopLevelInterfaceParams result = new _ServiceDescriptionGetTopLevelInterfaceParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -135,7 +135,7 @@ class ServiceDescriptionGetTopLevelInterfaceParams extends bindings.Struct {
   }
 
   String toString() {
-    return "ServiceDescriptionGetTopLevelInterfaceParams("")";
+    return "_ServiceDescriptionGetTopLevelInterfaceParams("")";
   }
 
   Map toJson() {
@@ -213,15 +213,15 @@ class ServiceDescriptionGetTopLevelInterfaceResponseParams extends bindings.Stru
 }
 
 
-class ServiceDescriptionGetTypeDefinitionParams extends bindings.Struct {
+class _ServiceDescriptionGetTypeDefinitionParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
   ];
   String typeKey = null;
 
-  ServiceDescriptionGetTypeDefinitionParams() : super(kVersions.last.size);
+  _ServiceDescriptionGetTypeDefinitionParams() : super(kVersions.last.size);
 
-  static ServiceDescriptionGetTypeDefinitionParams deserialize(bindings.Message message) {
+  static _ServiceDescriptionGetTypeDefinitionParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     if (decoder.excessHandles != null) {
@@ -230,11 +230,11 @@ class ServiceDescriptionGetTypeDefinitionParams extends bindings.Struct {
     return result;
   }
 
-  static ServiceDescriptionGetTypeDefinitionParams decode(bindings.Decoder decoder0) {
+  static _ServiceDescriptionGetTypeDefinitionParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    ServiceDescriptionGetTypeDefinitionParams result = new ServiceDescriptionGetTypeDefinitionParams();
+    _ServiceDescriptionGetTypeDefinitionParams result = new _ServiceDescriptionGetTypeDefinitionParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -268,7 +268,7 @@ class ServiceDescriptionGetTypeDefinitionParams extends bindings.Struct {
   }
 
   String toString() {
-    return "ServiceDescriptionGetTypeDefinitionParams("
+    return "_ServiceDescriptionGetTypeDefinitionParams("
            "typeKey: $typeKey" ")";
   }
 
@@ -347,14 +347,14 @@ class ServiceDescriptionGetTypeDefinitionResponseParams extends bindings.Struct 
 }
 
 
-class ServiceDescriptionGetAllTypeDefinitionsParams extends bindings.Struct {
+class _ServiceDescriptionGetAllTypeDefinitionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
   ];
 
-  ServiceDescriptionGetAllTypeDefinitionsParams() : super(kVersions.last.size);
+  _ServiceDescriptionGetAllTypeDefinitionsParams() : super(kVersions.last.size);
 
-  static ServiceDescriptionGetAllTypeDefinitionsParams deserialize(bindings.Message message) {
+  static _ServiceDescriptionGetAllTypeDefinitionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     if (decoder.excessHandles != null) {
@@ -363,11 +363,11 @@ class ServiceDescriptionGetAllTypeDefinitionsParams extends bindings.Struct {
     return result;
   }
 
-  static ServiceDescriptionGetAllTypeDefinitionsParams decode(bindings.Decoder decoder0) {
+  static _ServiceDescriptionGetAllTypeDefinitionsParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    ServiceDescriptionGetAllTypeDefinitionsParams result = new ServiceDescriptionGetAllTypeDefinitionsParams();
+    _ServiceDescriptionGetAllTypeDefinitionsParams result = new _ServiceDescriptionGetAllTypeDefinitionsParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -395,7 +395,7 @@ class ServiceDescriptionGetAllTypeDefinitionsParams extends bindings.Struct {
   }
 
   String toString() {
-    return "ServiceDescriptionGetAllTypeDefinitionsParams("")";
+    return "_ServiceDescriptionGetAllTypeDefinitionsParams("")";
   }
 
   Map toJson() {
@@ -531,31 +531,28 @@ class ServiceDescriptionGetAllTypeDefinitionsResponseParams extends bindings.Str
   }
 }
 
-const int kServiceDescriber_describeService_name = 0;
-const String ServiceDescriberName = "mojo::bindings::types::ServiceDescriber";
+const int _ServiceDescriber_describeServiceName = 0;
 
 abstract class ServiceDescriber {
+  static const String serviceName = "mojo::bindings::types::ServiceDescriber";
   void describeService(String interfaceName, Object descriptionRequest);
-
 }
 
 
-class ServiceDescriberProxyImpl extends bindings.Proxy {
-  ServiceDescriberProxyImpl.fromEndpoint(
+class _ServiceDescriberProxyImpl extends bindings.Proxy {
+  _ServiceDescriberProxyImpl.fromEndpoint(
       core.MojoMessagePipeEndpoint endpoint) : super.fromEndpoint(endpoint);
 
-  ServiceDescriberProxyImpl.fromHandle(core.MojoHandle handle) :
+  _ServiceDescriberProxyImpl.fromHandle(core.MojoHandle handle) :
       super.fromHandle(handle);
 
-  ServiceDescriberProxyImpl.unbound() : super.unbound();
+  _ServiceDescriberProxyImpl.unbound() : super.unbound();
 
-  static ServiceDescriberProxyImpl newFromEndpoint(
+  static _ServiceDescriberProxyImpl newFromEndpoint(
       core.MojoMessagePipeEndpoint endpoint) {
-    assert(endpoint.setDescription("For ServiceDescriberProxyImpl"));
-    return new ServiceDescriberProxyImpl.fromEndpoint(endpoint);
+    assert(endpoint.setDescription("For _ServiceDescriberProxyImpl"));
+    return new _ServiceDescriberProxyImpl.fromEndpoint(endpoint);
   }
-
-  String get name => ServiceDescriberName;
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -568,13 +565,13 @@ class ServiceDescriberProxyImpl extends bindings.Proxy {
 
   String toString() {
     var superString = super.toString();
-    return "ServiceDescriberProxyImpl($superString)";
+    return "_ServiceDescriberProxyImpl($superString)";
   }
 }
 
 
 class _ServiceDescriberProxyCalls implements ServiceDescriber {
-  ServiceDescriberProxyImpl _proxyImpl;
+  _ServiceDescriberProxyImpl _proxyImpl;
 
   _ServiceDescriberProxyCalls(this._proxyImpl);
     void describeService(String interfaceName, Object descriptionRequest) {
@@ -582,37 +579,35 @@ class _ServiceDescriberProxyCalls implements ServiceDescriber {
         _proxyImpl.proxyError("The Proxy is closed.");
         return;
       }
-      var params = new ServiceDescriberDescribeServiceParams();
+      var params = new _ServiceDescriberDescribeServiceParams();
       params.interfaceName = interfaceName;
       params.descriptionRequest = descriptionRequest;
-      _proxyImpl.sendMessage(params, kServiceDescriber_describeService_name);
+      _proxyImpl.sendMessage(params, _ServiceDescriber_describeServiceName);
     }
-  
 }
 
 
 class ServiceDescriberProxy implements bindings.ProxyBase {
   final bindings.Proxy impl;
   ServiceDescriber ptr;
-  final String name = ServiceDescriberName;
 
-  ServiceDescriberProxy(ServiceDescriberProxyImpl proxyImpl) :
+  ServiceDescriberProxy(_ServiceDescriberProxyImpl proxyImpl) :
       impl = proxyImpl,
       ptr = new _ServiceDescriberProxyCalls(proxyImpl);
 
   ServiceDescriberProxy.fromEndpoint(
       core.MojoMessagePipeEndpoint endpoint) :
-      impl = new ServiceDescriberProxyImpl.fromEndpoint(endpoint) {
+      impl = new _ServiceDescriberProxyImpl.fromEndpoint(endpoint) {
     ptr = new _ServiceDescriberProxyCalls(impl);
   }
 
   ServiceDescriberProxy.fromHandle(core.MojoHandle handle) :
-      impl = new ServiceDescriberProxyImpl.fromHandle(handle) {
+      impl = new _ServiceDescriberProxyImpl.fromHandle(handle) {
     ptr = new _ServiceDescriberProxyCalls(impl);
   }
 
   ServiceDescriberProxy.unbound() :
-      impl = new ServiceDescriberProxyImpl.unbound() {
+      impl = new _ServiceDescriberProxyImpl.unbound() {
     ptr = new _ServiceDescriberProxyCalls(impl);
   }
 
@@ -628,6 +623,8 @@ class ServiceDescriberProxy implements bindings.ProxyBase {
     assert(endpoint.setDescription("For ServiceDescriberProxy"));
     return new ServiceDescriberProxy.fromEndpoint(endpoint);
   }
+
+  String get serviceName => ServiceDescriber.serviceName;
 
   Future close({bool immediate: false}) => impl.close(immediate: immediate);
 
@@ -667,8 +664,6 @@ class ServiceDescriberStub extends bindings.Stub {
     return new ServiceDescriberStub.fromEndpoint(endpoint);
   }
 
-  static const String name = ServiceDescriberName;
-
 
 
   dynamic handleMessage(bindings.ServiceMessage message) {
@@ -679,8 +674,8 @@ class ServiceDescriberStub extends bindings.Stub {
     }
     assert(_impl != null);
     switch (message.header.type) {
-      case kServiceDescriber_describeService_name:
-        var params = ServiceDescriberDescribeServiceParams.deserialize(
+      case _ServiceDescriber_describeServiceName:
+        var params = _ServiceDescriberDescribeServiceParams.deserialize(
             message.payload);
         _impl.describeService(params.interfaceName, params.descriptionRequest);
         break;
@@ -705,39 +700,36 @@ class ServiceDescriberStub extends bindings.Stub {
   int get version => 0;
 }
 
-const int kServiceDescription_getTopLevelInterface_name = 0;
-const int kServiceDescription_getTypeDefinition_name = 1;
-const int kServiceDescription_getAllTypeDefinitions_name = 2;
-const String ServiceDescriptionName = null;
+const int _ServiceDescription_getTopLevelInterfaceName = 0;
+const int _ServiceDescription_getTypeDefinitionName = 1;
+const int _ServiceDescription_getAllTypeDefinitionsName = 2;
 
 abstract class ServiceDescription {
+  static const String serviceName = null;
   dynamic getTopLevelInterface([Function responseFactory = null]);
   dynamic getTypeDefinition(String typeKey,[Function responseFactory = null]);
   dynamic getAllTypeDefinitions([Function responseFactory = null]);
-
 }
 
 
-class ServiceDescriptionProxyImpl extends bindings.Proxy {
-  ServiceDescriptionProxyImpl.fromEndpoint(
+class _ServiceDescriptionProxyImpl extends bindings.Proxy {
+  _ServiceDescriptionProxyImpl.fromEndpoint(
       core.MojoMessagePipeEndpoint endpoint) : super.fromEndpoint(endpoint);
 
-  ServiceDescriptionProxyImpl.fromHandle(core.MojoHandle handle) :
+  _ServiceDescriptionProxyImpl.fromHandle(core.MojoHandle handle) :
       super.fromHandle(handle);
 
-  ServiceDescriptionProxyImpl.unbound() : super.unbound();
+  _ServiceDescriptionProxyImpl.unbound() : super.unbound();
 
-  static ServiceDescriptionProxyImpl newFromEndpoint(
+  static _ServiceDescriptionProxyImpl newFromEndpoint(
       core.MojoMessagePipeEndpoint endpoint) {
-    assert(endpoint.setDescription("For ServiceDescriptionProxyImpl"));
-    return new ServiceDescriptionProxyImpl.fromEndpoint(endpoint);
+    assert(endpoint.setDescription("For _ServiceDescriptionProxyImpl"));
+    return new _ServiceDescriptionProxyImpl.fromEndpoint(endpoint);
   }
-
-  String get name => ServiceDescriptionName;
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
-      case kServiceDescription_getTopLevelInterface_name:
+      case _ServiceDescription_getTopLevelInterfaceName:
         var r = ServiceDescriptionGetTopLevelInterfaceResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
@@ -757,7 +749,7 @@ class ServiceDescriptionProxyImpl extends bindings.Proxy {
         }
         c.complete(r);
         break;
-      case kServiceDescription_getTypeDefinition_name:
+      case _ServiceDescription_getTypeDefinitionName:
         var r = ServiceDescriptionGetTypeDefinitionResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
@@ -777,7 +769,7 @@ class ServiceDescriptionProxyImpl extends bindings.Proxy {
         }
         c.complete(r);
         break;
-      case kServiceDescription_getAllTypeDefinitions_name:
+      case _ServiceDescription_getAllTypeDefinitionsName:
         var r = ServiceDescriptionGetAllTypeDefinitionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
@@ -806,37 +798,37 @@ class ServiceDescriptionProxyImpl extends bindings.Proxy {
 
   String toString() {
     var superString = super.toString();
-    return "ServiceDescriptionProxyImpl($superString)";
+    return "_ServiceDescriptionProxyImpl($superString)";
   }
 }
 
 
 class _ServiceDescriptionProxyCalls implements ServiceDescription {
-  ServiceDescriptionProxyImpl _proxyImpl;
+  _ServiceDescriptionProxyImpl _proxyImpl;
 
   _ServiceDescriptionProxyCalls(this._proxyImpl);
     dynamic getTopLevelInterface([Function responseFactory = null]) {
-      var params = new ServiceDescriptionGetTopLevelInterfaceParams();
+      var params = new _ServiceDescriptionGetTopLevelInterfaceParams();
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kServiceDescription_getTopLevelInterface_name,
+          _ServiceDescription_getTopLevelInterfaceName,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic getTypeDefinition(String typeKey,[Function responseFactory = null]) {
-      var params = new ServiceDescriptionGetTypeDefinitionParams();
+      var params = new _ServiceDescriptionGetTypeDefinitionParams();
       params.typeKey = typeKey;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kServiceDescription_getTypeDefinition_name,
+          _ServiceDescription_getTypeDefinitionName,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic getAllTypeDefinitions([Function responseFactory = null]) {
-      var params = new ServiceDescriptionGetAllTypeDefinitionsParams();
+      var params = new _ServiceDescriptionGetAllTypeDefinitionsParams();
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kServiceDescription_getAllTypeDefinitions_name,
+          _ServiceDescription_getAllTypeDefinitionsName,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
@@ -846,25 +838,24 @@ class _ServiceDescriptionProxyCalls implements ServiceDescription {
 class ServiceDescriptionProxy implements bindings.ProxyBase {
   final bindings.Proxy impl;
   ServiceDescription ptr;
-  final String name = ServiceDescriptionName;
 
-  ServiceDescriptionProxy(ServiceDescriptionProxyImpl proxyImpl) :
+  ServiceDescriptionProxy(_ServiceDescriptionProxyImpl proxyImpl) :
       impl = proxyImpl,
       ptr = new _ServiceDescriptionProxyCalls(proxyImpl);
 
   ServiceDescriptionProxy.fromEndpoint(
       core.MojoMessagePipeEndpoint endpoint) :
-      impl = new ServiceDescriptionProxyImpl.fromEndpoint(endpoint) {
+      impl = new _ServiceDescriptionProxyImpl.fromEndpoint(endpoint) {
     ptr = new _ServiceDescriptionProxyCalls(impl);
   }
 
   ServiceDescriptionProxy.fromHandle(core.MojoHandle handle) :
-      impl = new ServiceDescriptionProxyImpl.fromHandle(handle) {
+      impl = new _ServiceDescriptionProxyImpl.fromHandle(handle) {
     ptr = new _ServiceDescriptionProxyCalls(impl);
   }
 
   ServiceDescriptionProxy.unbound() :
-      impl = new ServiceDescriptionProxyImpl.unbound() {
+      impl = new _ServiceDescriptionProxyImpl.unbound() {
     ptr = new _ServiceDescriptionProxyCalls(impl);
   }
 
@@ -880,6 +871,8 @@ class ServiceDescriptionProxy implements bindings.ProxyBase {
     assert(endpoint.setDescription("For ServiceDescriptionProxy"));
     return new ServiceDescriptionProxy.fromEndpoint(endpoint);
   }
+
+  String get serviceName => ServiceDescription.serviceName;
 
   Future close({bool immediate: false}) => impl.close(immediate: immediate);
 
@@ -919,8 +912,6 @@ class ServiceDescriptionStub extends bindings.Stub {
     return new ServiceDescriptionStub.fromEndpoint(endpoint);
   }
 
-  static const String name = ServiceDescriptionName;
-
 
   ServiceDescriptionGetTopLevelInterfaceResponseParams _ServiceDescriptionGetTopLevelInterfaceResponseParamsFactory(mojom_types_mojom.MojomInterface mojomInterface) {
     var mojo_factory_result = new ServiceDescriptionGetTopLevelInterfaceResponseParams();
@@ -946,8 +937,8 @@ class ServiceDescriptionStub extends bindings.Stub {
     }
     assert(_impl != null);
     switch (message.header.type) {
-      case kServiceDescription_getTopLevelInterface_name:
-        var params = ServiceDescriptionGetTopLevelInterfaceParams.deserialize(
+      case _ServiceDescription_getTopLevelInterfaceName:
+        var params = _ServiceDescriptionGetTopLevelInterfaceParams.deserialize(
             message.payload);
         var response = _impl.getTopLevelInterface(_ServiceDescriptionGetTopLevelInterfaceResponseParamsFactory);
         if (response is Future) {
@@ -955,7 +946,7 @@ class ServiceDescriptionStub extends bindings.Stub {
             if (response != null) {
               return buildResponseWithId(
                   response,
-                  kServiceDescription_getTopLevelInterface_name,
+                  _ServiceDescription_getTopLevelInterfaceName,
                   message.header.requestId,
                   bindings.MessageHeader.kMessageIsResponse);
             }
@@ -963,13 +954,13 @@ class ServiceDescriptionStub extends bindings.Stub {
         } else if (response != null) {
           return buildResponseWithId(
               response,
-              kServiceDescription_getTopLevelInterface_name,
+              _ServiceDescription_getTopLevelInterfaceName,
               message.header.requestId,
               bindings.MessageHeader.kMessageIsResponse);
         }
         break;
-      case kServiceDescription_getTypeDefinition_name:
-        var params = ServiceDescriptionGetTypeDefinitionParams.deserialize(
+      case _ServiceDescription_getTypeDefinitionName:
+        var params = _ServiceDescriptionGetTypeDefinitionParams.deserialize(
             message.payload);
         var response = _impl.getTypeDefinition(params.typeKey,_ServiceDescriptionGetTypeDefinitionResponseParamsFactory);
         if (response is Future) {
@@ -977,7 +968,7 @@ class ServiceDescriptionStub extends bindings.Stub {
             if (response != null) {
               return buildResponseWithId(
                   response,
-                  kServiceDescription_getTypeDefinition_name,
+                  _ServiceDescription_getTypeDefinitionName,
                   message.header.requestId,
                   bindings.MessageHeader.kMessageIsResponse);
             }
@@ -985,13 +976,13 @@ class ServiceDescriptionStub extends bindings.Stub {
         } else if (response != null) {
           return buildResponseWithId(
               response,
-              kServiceDescription_getTypeDefinition_name,
+              _ServiceDescription_getTypeDefinitionName,
               message.header.requestId,
               bindings.MessageHeader.kMessageIsResponse);
         }
         break;
-      case kServiceDescription_getAllTypeDefinitions_name:
-        var params = ServiceDescriptionGetAllTypeDefinitionsParams.deserialize(
+      case _ServiceDescription_getAllTypeDefinitionsName:
+        var params = _ServiceDescriptionGetAllTypeDefinitionsParams.deserialize(
             message.payload);
         var response = _impl.getAllTypeDefinitions(_ServiceDescriptionGetAllTypeDefinitionsResponseParamsFactory);
         if (response is Future) {
@@ -999,7 +990,7 @@ class ServiceDescriptionStub extends bindings.Stub {
             if (response != null) {
               return buildResponseWithId(
                   response,
-                  kServiceDescription_getAllTypeDefinitions_name,
+                  _ServiceDescription_getAllTypeDefinitionsName,
                   message.header.requestId,
                   bindings.MessageHeader.kMessageIsResponse);
             }
@@ -1007,7 +998,7 @@ class ServiceDescriptionStub extends bindings.Stub {
         } else if (response != null) {
           return buildResponseWithId(
               response,
-              kServiceDescription_getAllTypeDefinitions_name,
+              _ServiceDescription_getAllTypeDefinitionsName,
               message.header.requestId,
               bindings.MessageHeader.kMessageIsResponse);
         }
