@@ -13,14 +13,14 @@ class SimpleType extends bindings.MojoEnum {
   static const SimpleType bool = const SimpleType._(0);
   static const SimpleType double = const SimpleType._(1);
   static const SimpleType float = const SimpleType._(2);
-  static const SimpleType inT8 = const SimpleType._(3);
-  static const SimpleType inT16 = const SimpleType._(4);
-  static const SimpleType inT32 = const SimpleType._(5);
-  static const SimpleType inT64 = const SimpleType._(6);
-  static const SimpleType uinT8 = const SimpleType._(7);
-  static const SimpleType uinT16 = const SimpleType._(8);
-  static const SimpleType uinT32 = const SimpleType._(9);
-  static const SimpleType uinT64 = const SimpleType._(10);
+  static const SimpleType int8 = const SimpleType._(3);
+  static const SimpleType int16 = const SimpleType._(4);
+  static const SimpleType int32 = const SimpleType._(5);
+  static const SimpleType int64 = const SimpleType._(6);
+  static const SimpleType uint8 = const SimpleType._(7);
+  static const SimpleType uint16 = const SimpleType._(8);
+  static const SimpleType uint32 = const SimpleType._(9);
+  static const SimpleType uint64 = const SimpleType._(10);
 
   const SimpleType._(int v) : super(v);
 
@@ -28,27 +28,27 @@ class SimpleType extends bindings.MojoEnum {
     "bool": bool,
     "double": double,
     "float": float,
-    "inT8": inT8,
-    "inT16": inT16,
-    "inT32": inT32,
-    "inT64": inT64,
-    "uinT8": uinT8,
-    "uinT16": uinT16,
-    "uinT32": uinT32,
-    "uinT64": uinT64,
+    "int8": int8,
+    "int16": int16,
+    "int32": int32,
+    "int64": int64,
+    "uint8": uint8,
+    "uint16": uint16,
+    "uint32": uint32,
+    "uint64": uint64,
   };
   static const List<SimpleType> values = const [
     bool,
     double,
     float,
-    inT8,
-    inT16,
-    inT32,
-    inT64,
-    uinT8,
-    uinT16,
-    uinT32,
-    uinT64,
+    int8,
+    int16,
+    int32,
+    int64,
+    uint8,
+    uint16,
+    uint32,
+    uint64,
   ];
 
   static SimpleType valueOf(String name) => valuesMap[name];
@@ -62,21 +62,21 @@ class SimpleType extends bindings.MojoEnum {
       case 2:
         return float;
       case 3:
-        return inT8;
+        return int8;
       case 4:
-        return inT16;
+        return int16;
       case 5:
-        return inT32;
+        return int32;
       case 6:
-        return inT64;
+        return int64;
       case 7:
-        return uinT8;
+        return uint8;
       case 8:
-        return uinT16;
+        return uint16;
       case 9:
-        return uinT32;
+        return uint32;
       case 10:
-        return uinT64;
+        return uint64;
       default:
         return null;
     }
@@ -100,22 +100,22 @@ class SimpleType extends bindings.MojoEnum {
         return 'SimpleType.double';
       case float:
         return 'SimpleType.float';
-      case inT8:
-        return 'SimpleType.inT8';
-      case inT16:
-        return 'SimpleType.inT16';
-      case inT32:
-        return 'SimpleType.inT32';
-      case inT64:
-        return 'SimpleType.inT64';
-      case uinT8:
-        return 'SimpleType.uinT8';
-      case uinT16:
-        return 'SimpleType.uinT16';
-      case uinT32:
-        return 'SimpleType.uinT32';
-      case uinT64:
-        return 'SimpleType.uinT64';
+      case int8:
+        return 'SimpleType.int8';
+      case int16:
+        return 'SimpleType.int16';
+      case int32:
+        return 'SimpleType.int32';
+      case int64:
+        return 'SimpleType.int64';
+      case uint8:
+        return 'SimpleType.uint8';
+      case uint16:
+        return 'SimpleType.uint16';
+      case uint32:
+        return 'SimpleType.uint32';
+      case uint64:
+        return 'SimpleType.uint64';
     }
   }
 
