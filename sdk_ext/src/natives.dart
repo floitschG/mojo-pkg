@@ -97,8 +97,7 @@ class MojoHandleWatcherNatives {
       int commandCode,
       int handleOrDeadline,
       SendPort port,
-      int data)
-      native "MojoHandleWatcher_SendControlData";
+      int data) native "MojoHandleWatcher_SendControlData";
 }
 
 class MojoMessagePipeNatives {
@@ -145,9 +144,6 @@ class MojoSharedBufferNatives {
   static List Duplicate(int bufferHandle, int flags)
       native "MojoSharedBuffer_Duplicate";
 
-  static List Map(
-      Object buffer, int bufferHandle, int offset, int numBytes, int flags)
+  static List Map(int bufferHandle, int offset, int numBytes, int flags)
       native "MojoSharedBuffer_Map";
-
-  static int Unmap(ByteData buffer) native "MojoSharedBuffer_Unmap";
 }
