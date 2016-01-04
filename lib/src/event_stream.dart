@@ -111,7 +111,18 @@ class MojoEventSubscription {
   String toString() => "$_handle";
 }
 
-typedef void ErrorHandler(Object e);
+/// Object returned to pipe's error handlers containing both the thrown error
+/// and the associated stack trace.
+class MojoHandlerError {
+  final Object error;
+  final StackTrace stacktrace;
+
+  MojoHandlerError(this.error, this.stacktrace);
+
+  String toString() => error.toString();
+}
+
+typedef void ErrorHandler(MojoHandlerError e);
 
 class MojoEventHandler {
   ErrorHandler onError;
@@ -196,10 +207,10 @@ class MojoEventHandler {
       // error that can't be handled. We rethrow the error so that
       // MojoEventHandlers can't swallow it by mistake.
       rethrow;
-    } catch (e) {
+    } catch (e, s) {
       close(immediate: true).then((_) {
         if (onError != null) {
-          onError(e);
+          onError(new MojoHandlerError(e, s));
         }
       });
     }
