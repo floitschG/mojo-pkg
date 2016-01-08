@@ -14,9 +14,10 @@ import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types_
 
 class MojomFile extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
-    const bindings.StructDataHeader(48, 0)
+    const bindings.StructDataHeader(56, 0)
   ];
   String fileName = null;
+  String specifiedFileName = null;
   String moduleNamespace = null;
   List<mojom_types_mojom.Attribute> attributes = null;
   List<String> imports = null;
@@ -63,11 +64,15 @@ class MojomFile extends bindings.Struct {
     }
     if (mainDataHeader.version >= 0) {
       
-      result.moduleNamespace = decoder0.decodeString(16, true);
+      result.specifiedFileName = decoder0.decodeString(16, true);
     }
     if (mainDataHeader.version >= 0) {
       
-      var decoder1 = decoder0.decodePointer(24, true);
+      result.moduleNamespace = decoder0.decodeString(24, true);
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(32, true);
       if (decoder1 == null) {
         result.attributes = null;
       } else {
@@ -82,7 +87,7 @@ class MojomFile extends bindings.Struct {
     }
     if (mainDataHeader.version >= 0) {
       
-      var decoder1 = decoder0.decodePointer(32, true);
+      var decoder1 = decoder0.decodePointer(40, true);
       if (decoder1 == null) {
         result.imports = null;
       } else {
@@ -96,7 +101,7 @@ class MojomFile extends bindings.Struct {
     }
     if (mainDataHeader.version >= 0) {
       
-      var decoder1 = decoder0.decodePointer(40, false);
+      var decoder1 = decoder0.decodePointer(48, false);
       result.declaredMojomObjects = KeysByType.decode(decoder1);
     }
     return result;
@@ -107,12 +112,14 @@ class MojomFile extends bindings.Struct {
     
     encoder0.encodeString(fileName, 8, false);
     
-    encoder0.encodeString(moduleNamespace, 16, true);
+    encoder0.encodeString(specifiedFileName, 16, true);
+    
+    encoder0.encodeString(moduleNamespace, 24, true);
     
     if (attributes == null) {
-      encoder0.encodeNullPointer(24, true);
+      encoder0.encodeNullPointer(32, true);
     } else {
-      var encoder1 = encoder0.encodePointerArray(attributes.length, 24, bindings.kUnspecifiedArrayLength);
+      var encoder1 = encoder0.encodePointerArray(attributes.length, 32, bindings.kUnspecifiedArrayLength);
       for (int i0 = 0; i0 < attributes.length; ++i0) {
         
         encoder1.encodeStruct(attributes[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
@@ -120,21 +127,22 @@ class MojomFile extends bindings.Struct {
     }
     
     if (imports == null) {
-      encoder0.encodeNullPointer(32, true);
+      encoder0.encodeNullPointer(40, true);
     } else {
-      var encoder1 = encoder0.encodePointerArray(imports.length, 32, bindings.kUnspecifiedArrayLength);
+      var encoder1 = encoder0.encodePointerArray(imports.length, 40, bindings.kUnspecifiedArrayLength);
       for (int i0 = 0; i0 < imports.length; ++i0) {
         
         encoder1.encodeString(imports[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
       }
     }
     
-    encoder0.encodeStruct(declaredMojomObjects, 40, false);
+    encoder0.encodeStruct(declaredMojomObjects, 48, false);
   }
 
   String toString() {
     return "MojomFile("
            "fileName: $fileName" ", "
+           "specifiedFileName: $specifiedFileName" ", "
            "moduleNamespace: $moduleNamespace" ", "
            "attributes: $attributes" ", "
            "imports: $imports" ", "
@@ -144,6 +152,7 @@ class MojomFile extends bindings.Struct {
   Map toJson() {
     Map map = new Map();
     map["fileName"] = fileName;
+    map["specifiedFileName"] = specifiedFileName;
     map["moduleNamespace"] = moduleNamespace;
     map["attributes"] = attributes;
     map["imports"] = imports;
