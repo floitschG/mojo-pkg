@@ -7,8 +7,9 @@ library core;
 import 'dart:async';
 import 'dart:collection';
 import 'dart:isolate';
-import 'dart:mojo.internal';
 import 'dart:typed_data';
+
+import 'src/internal.dart';
 
 part 'src/buffer.dart';
 part 'src/data_pipe.dart';
