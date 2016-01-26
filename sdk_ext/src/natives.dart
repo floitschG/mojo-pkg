@@ -111,7 +111,7 @@ class MojoMessagePipeNatives {
       int handle, ByteData data, int numBytes, List<int> handles, int flags)
       native "MojoMessagePipe_Read";
 
-  static List MojoQueryAndReadMessage(int handle, int flags, List result)
+  static void MojoQueryAndReadMessage(int handle, int flags, List result)
       native "MojoMessagePipe_QueryAndRead";
 }
 
