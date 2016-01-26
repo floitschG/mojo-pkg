@@ -24,15 +24,15 @@ class MojoHandleWatcher {
   // If wait is true, returns a future that resolves only after the handle
   // has actually been closed by the handle watcher. Otherwise, returns a
   // future that resolves immediately.
-  static Future<int> close(int mojoHandle, {bool wait: false}) {
+  static Future<int> close(Object mojoHandle, {bool wait: false}) {
     throw new UnsupportedError("MojoHandleWatcher.close on contract");
   }
 
-  static int add(int mojoHandle, SendPort port, int signals) {
+  static int add(Object mojoHandle, SendPort port, int signals) {
     throw new UnsupportedError("MojoHandleWatcher.add on contract");
   }
 
-  static int remove(int mojoHandle) {
+  static int remove(Object mojoHandle) {
     throw new UnsupportedError("MojoHandleWatcher.remove on contract");
   }
 
@@ -53,11 +53,11 @@ class MojoCoreNatives {
 }
 
 class MojoHandleNatives {
-  static void addOpenHandle(int handle, {String description}) {
+  static void addOpenHandle(Object handle, {String description}) {
     throw new UnsupportedError("MojoHandleNatives.addOpenHandle on contract");
   }
 
-  static void removeOpenHandle(int handle) {
+  static void removeOpenHandle(Object handle) {
     throw new UnsupportedError(
         "MojoHandleNatives.removeOpenHandle on contract");
   }
@@ -67,31 +67,31 @@ class MojoHandleNatives {
         "MojoHandleNatives.reportOpenHandles on contract");
   }
 
-  static bool setDescription(int handle, String description) {
+  static bool setDescription(Object handle, String description) {
     throw new UnsupportedError("MojoHandleNatives.setDescription on contract");
   }
 
-  static int registerFinalizer(Object eventStream, int handle) {
+  static int registerFinalizer(Object eventStream, Object handle) {
     throw new UnsupportedError(
         "MojoHandleNatives.registerFinalizer on contract");
   }
 
-  static int close(int handle) {
+  static int close(Object handle) {
     throw new UnsupportedError("MojoHandleNatives.close on contract");
   }
 
-  static List wait(int handle, int signals, int deadline) {
+  static List wait(Object handle, int signals, int deadline) {
     throw new UnsupportedError("MojoHandleNatives.woit on contract");
   }
 
-  static List waitMany(List<int> handles, List<int> signals, int deadline) {
+  static List waitMany(List<Object> handles, List<int> signals, int deadline) {
     throw new UnsupportedError("MojoHandleNatives.wainMany on contract");
   }
 }
 
 class MojoHandleWatcherNatives {
   static int sendControlData(int controlHandle, int commandCode,
-      int handleOrDeadline, SendPort port, int data) {
+      dynamic /*Object | int*/ handleOrDeadline, SendPort port, int data) {
     throw new UnsupportedError(
         "MojoHandleWatcherNatives.sendControlData on contract");
   }
@@ -103,19 +103,19 @@ class MojoMessagePipeNatives {
         "MojoMessagePipeNatives.MojoCreateMessagePipe on contract");
   }
 
-  static int MojoWriteMessage(
-      int handle, ByteData data, int numBytes, List<int> handles, int flags) {
+  static int MojoWriteMessage(Object handle, ByteData data, int numBytes,
+      List<int> handles, int flags) {
     throw new UnsupportedError(
         "MojoMessagePipeNatives.MojoWriteMessage on contract");
   }
 
-  static List MojoReadMessage(
-      int handle, ByteData data, int numBytes, List<int> handles, int flags) {
+  static List MojoReadMessage(Object handle, ByteData data, int numBytes,
+      List<Object> handles, int flags) {
     throw new UnsupportedError(
         "MojoMessagePipeNatives.MojoReadMessage on contract");
   }
 
-  static List MojoQueryAndReadMessage(int handle, int flags, List result) {
+  static List MojoQueryAndReadMessage(Object handle, int flags, List result) {
     throw new UnsupportedError(
         "MojoMessagePipeNatives.MojoQueryAndReadMessage on contract");
   }
@@ -129,30 +129,31 @@ class MojoDataPipeNatives {
   }
 
   static List MojoWriteData(
-      int handle, ByteData data, int numBytes, int flags) {
+      dynamic handle, ByteData data, int numBytes, int flags) {
     throw new UnsupportedError("MojoDataPipeNatives.MojoWriteData on contract");
   }
 
-  static List MojoBeginWriteData(int handle, int bufferBytes, int flags) {
+  static List MojoBeginWriteData(Object handle, int bufferBytes, int flags) {
     throw new UnsupportedError(
         "MojoDataPipeNatives.MojoBeginWriteData on contract");
   }
 
-  static int MojoEndWriteData(int handle, int bytesWritten) {
+  static int MojoEndWriteData(Object handle, int bytesWritten) {
     throw new UnsupportedError(
         "MojoDataPipeNatives.MojoEndWriteData on contract");
   }
 
-  static List MojoReadData(int handle, ByteData data, int numBytes, int flags) {
+  static List MojoReadData(
+      Object handle, ByteData data, int numBytes, int flags) {
     throw new UnsupportedError("MojoDataPipeNatives.MojoReadData on contract");
   }
 
-  static List MojoBeginReadData(int handle, int bufferBytes, int flags) {
+  static List MojoBeginReadData(Object handle, int bufferBytes, int flags) {
     throw new UnsupportedError(
         "MojoDataPipeNatives.MojoBeginReadData on contract");
   }
 
-  static int MojoEndReadData(int handle, int bytesRead) {
+  static int MojoEndReadData(Object handle, int bytesRead) {
     throw new UnsupportedError(
         "MojoDataPipeNatives.MojoEndReadData on contract");
   }
@@ -163,11 +164,11 @@ class MojoSharedBufferNatives {
     throw new UnsupportedError("MojoSharedBufferNatives.Create on contract");
   }
 
-  static List Duplicate(int bufferHandle, int flags) {
+  static List Duplicate(Object bufferHandle, int flags) {
     throw new UnsupportedError("MojoSharedBufferNatives.Duplicate on contract");
   }
 
-  static List Map(int bufferHandle, int offset, int numBytes, int flags) {
+  static List Map(Object bufferHandle, int offset, int numBytes, int flags) {
     throw new UnsupportedError("MojoSharedBufferNatives.Map on contract");
   }
 }
