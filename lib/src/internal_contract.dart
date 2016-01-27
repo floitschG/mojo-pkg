@@ -8,6 +8,8 @@ import 'dart:typed_data' show ByteData;
 
 // The following import is only here to get references in the documentation
 // to work. There is no dependency from the internal library to 'core'.
+// TODO(floitsch): move the constants into the internal-library, and
+// reference them from the package-classes.
 import '../core.dart'
     show
         MojoResult,
