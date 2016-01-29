@@ -8,6 +8,8 @@ import 'dart:async';
 
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:mojo/core.dart' as core;
+import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types;
+
 import 'package:mojo/mojo/http_header.mojom.dart' as http_header_mojom;
 
 
@@ -63,11 +65,15 @@ class UrlRequestCacheMode extends bindings.MojoEnum {
         return 'UrlRequestCacheMode.bypassCache';
       case onlyFromCache:
         return 'UrlRequestCacheMode.onlyFromCache';
+      default:
+        return null;
     }
   }
 
   int toJson() => mojoEnumValue;
 }
+
+
 
 class UrlRequest extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
@@ -204,5 +210,9 @@ class UrlRequest extends bindings.Struct {
         'Object containing handles cannot be encoded to JSON.');
   }
 }
+
+
+
+
 
 

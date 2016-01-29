@@ -8,6 +8,8 @@ import 'dart:async';
 
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:mojo/core.dart' as core;
+import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types;
+import 'package:mojo/mojo/bindings/types/service_describer.mojom.dart' as service_describer;
 import 'package:mojo/mojo/service_provider.mojom.dart' as service_provider_mojom;
 
 
@@ -94,6 +96,8 @@ class _ApplicationConnectorConnectToApplicationParams extends bindings.Struct {
 }
 
 
+
+
 class _ApplicationConnectorDuplicateParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -159,8 +163,21 @@ class _ApplicationConnectorDuplicateParams extends bindings.Struct {
   }
 }
 
+
+
+
 const int _ApplicationConnector_connectToApplicationName = 0;
 const int _ApplicationConnector_duplicateName = 1;
+
+
+
+class _ApplicationConnectorServiceDescription implements service_describer.ServiceDescription {
+  dynamic getTopLevelInterface([Function responseFactory]) => null;
+
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+
+  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+}
 
 abstract class ApplicationConnector {
   static const String serviceName = null;
@@ -183,6 +200,9 @@ class _ApplicationConnectorProxyImpl extends bindings.Proxy {
     assert(endpoint.setDescription("For _ApplicationConnectorProxyImpl"));
     return new _ApplicationConnectorProxyImpl.fromEndpoint(endpoint);
   }
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ApplicationConnectorServiceDescription();
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -343,6 +363,10 @@ class ApplicationConnectorStub extends bindings.Stub {
   }
 
   int get version => 0;
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ApplicationConnectorServiceDescription();
 }
+
 
 

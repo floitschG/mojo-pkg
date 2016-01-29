@@ -8,6 +8,8 @@ import 'dart:async';
 
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:mojo/core.dart' as core;
+import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types;
+
 import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types_mojom;
 const String serviceDescriberInterfaceName = "_ServiceDescriber";
 
@@ -87,6 +89,8 @@ class _ServiceDescriberDescribeServiceParams extends bindings.Struct {
 }
 
 
+
+
 class _ServiceDescriptionGetTopLevelInterfaceParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
@@ -143,6 +147,8 @@ class _ServiceDescriptionGetTopLevelInterfaceParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class ServiceDescriptionGetTopLevelInterfaceResponseParams extends bindings.Struct {
@@ -213,6 +219,8 @@ class ServiceDescriptionGetTopLevelInterfaceResponseParams extends bindings.Stru
 }
 
 
+
+
 class _ServiceDescriptionGetTypeDefinitionParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -278,6 +286,8 @@ class _ServiceDescriptionGetTypeDefinitionParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class ServiceDescriptionGetTypeDefinitionResponseParams extends bindings.Struct {
@@ -347,6 +357,8 @@ class ServiceDescriptionGetTypeDefinitionResponseParams extends bindings.Struct 
 }
 
 
+
+
 class _ServiceDescriptionGetAllTypeDefinitionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
@@ -403,6 +415,8 @@ class _ServiceDescriptionGetAllTypeDefinitionsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class ServiceDescriptionGetAllTypeDefinitionsResponseParams extends bindings.Struct {
@@ -531,7 +545,20 @@ class ServiceDescriptionGetAllTypeDefinitionsResponseParams extends bindings.Str
   }
 }
 
+
+
+
 const int _ServiceDescriber_describeServiceName = 0;
+
+
+
+class _ServiceDescriberServiceDescription implements ServiceDescription {
+  dynamic getTopLevelInterface([Function responseFactory]) => null;
+
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+
+  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+}
 
 abstract class ServiceDescriber {
   static const String serviceName = "mojo::bindings::types::ServiceDescriber";
@@ -553,6 +580,9 @@ class _ServiceDescriberProxyImpl extends bindings.Proxy {
     assert(endpoint.setDescription("For _ServiceDescriberProxyImpl"));
     return new _ServiceDescriberProxyImpl.fromEndpoint(endpoint);
   }
+
+  ServiceDescription get serviceDescription =>
+    new _ServiceDescriberServiceDescription();
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -698,11 +728,24 @@ class ServiceDescriberStub extends bindings.Stub {
   }
 
   int get version => 0;
+
+  ServiceDescription get serviceDescription =>
+    new _ServiceDescriberServiceDescription();
 }
 
 const int _ServiceDescription_getTopLevelInterfaceName = 0;
 const int _ServiceDescription_getTypeDefinitionName = 1;
 const int _ServiceDescription_getAllTypeDefinitionsName = 2;
+
+
+
+class _ServiceDescriptionServiceDescription implements ServiceDescription {
+  dynamic getTopLevelInterface([Function responseFactory]) => null;
+
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+
+  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+}
 
 abstract class ServiceDescription {
   static const String serviceName = null;
@@ -726,6 +769,9 @@ class _ServiceDescriptionProxyImpl extends bindings.Proxy {
     assert(endpoint.setDescription("For _ServiceDescriptionProxyImpl"));
     return new _ServiceDescriptionProxyImpl.fromEndpoint(endpoint);
   }
+
+  ServiceDescription get serviceDescription =>
+    new _ServiceDescriptionServiceDescription();
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -1022,6 +1068,10 @@ class ServiceDescriptionStub extends bindings.Stub {
   }
 
   int get version => 0;
+
+  ServiceDescription get serviceDescription =>
+    new _ServiceDescriptionServiceDescription();
 }
+
 
 

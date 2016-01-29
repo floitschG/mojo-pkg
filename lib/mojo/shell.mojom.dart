@@ -8,6 +8,8 @@ import 'dart:async';
 
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:mojo/core.dart' as core;
+import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types;
+import 'package:mojo/mojo/bindings/types/service_describer.mojom.dart' as service_describer;
 import 'package:mojo/mojo/application_connector.mojom.dart' as application_connector_mojom;
 import 'package:mojo/mojo/service_provider.mojom.dart' as service_provider_mojom;
 
@@ -95,6 +97,8 @@ class _ShellConnectToApplicationParams extends bindings.Struct {
 }
 
 
+
+
 class _ShellCreateApplicationConnectorParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -160,8 +164,21 @@ class _ShellCreateApplicationConnectorParams extends bindings.Struct {
   }
 }
 
+
+
+
 const int _Shell_connectToApplicationName = 0;
 const int _Shell_createApplicationConnectorName = 1;
+
+
+
+class _ShellServiceDescription implements service_describer.ServiceDescription {
+  dynamic getTopLevelInterface([Function responseFactory]) => null;
+
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+
+  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+}
 
 abstract class Shell {
   static const String serviceName = null;
@@ -184,6 +201,9 @@ class _ShellProxyImpl extends bindings.Proxy {
     assert(endpoint.setDescription("For _ShellProxyImpl"));
     return new _ShellProxyImpl.fromEndpoint(endpoint);
   }
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ShellServiceDescription();
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -344,6 +364,10 @@ class ShellStub extends bindings.Stub {
   }
 
   int get version => 0;
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ShellServiceDescription();
 }
+
 
 

@@ -8,6 +8,8 @@ import 'dart:async';
 
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:mojo/core.dart' as core;
+import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types;
+import 'package:mojo/mojo/bindings/types/service_describer.mojom.dart' as service_describer;
 import 'package:mojo/mojo/service_provider.mojom.dart' as service_provider_mojom;
 import 'package:mojo/mojo/shell.mojom.dart' as shell_mojom;
 
@@ -113,6 +115,8 @@ class _ApplicationInitializeParams extends bindings.Struct {
 }
 
 
+
+
 class _ApplicationAcceptConnectionParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(40, 0)
@@ -203,6 +207,8 @@ class _ApplicationAcceptConnectionParams extends bindings.Struct {
 }
 
 
+
+
 class _ApplicationRequestQuitParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
@@ -260,9 +266,22 @@ class _ApplicationRequestQuitParams extends bindings.Struct {
   }
 }
 
+
+
+
 const int _Application_initializeName = 0;
 const int _Application_acceptConnectionName = 1;
 const int _Application_requestQuitName = 2;
+
+
+
+class _ApplicationServiceDescription implements service_describer.ServiceDescription {
+  dynamic getTopLevelInterface([Function responseFactory]) => null;
+
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+
+  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+}
 
 abstract class Application {
   static const String serviceName = null;
@@ -286,6 +305,9 @@ class _ApplicationProxyImpl extends bindings.Proxy {
     assert(endpoint.setDescription("For _ApplicationProxyImpl"));
     return new _ApplicationProxyImpl.fromEndpoint(endpoint);
   }
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ApplicationServiceDescription();
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -462,6 +484,10 @@ class ApplicationStub extends bindings.Stub {
   }
 
   int get version => 0;
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ApplicationServiceDescription();
 }
+
 
 

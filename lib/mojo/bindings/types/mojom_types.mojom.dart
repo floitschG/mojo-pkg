@@ -9,6 +9,8 @@ import 'dart:async';
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:mojo/core.dart' as core;
 
+
+
 class SimpleType extends bindings.MojoEnum {
   static const SimpleType bool = const SimpleType._(0);
   static const SimpleType double = const SimpleType._(1);
@@ -116,11 +118,15 @@ class SimpleType extends bindings.MojoEnum {
         return 'SimpleType.uint32';
       case uint64:
         return 'SimpleType.uint64';
+      default:
+        return null;
     }
   }
 
   int toJson() => mojoEnumValue;
 }
+
+
 
 class BuiltinConstantValue extends bindings.MojoEnum {
   static const BuiltinConstantValue doubleInfinity = const BuiltinConstantValue._(0);
@@ -194,11 +200,15 @@ class BuiltinConstantValue extends bindings.MojoEnum {
         return 'BuiltinConstantValue.floatNegativeInfinity';
       case floatNan:
         return 'BuiltinConstantValue.floatNan';
+      default:
+        return null;
     }
   }
 
   int toJson() => mojoEnumValue;
 }
+
+
 
 
 
@@ -269,6 +279,8 @@ class StringType extends bindings.Struct {
 }
 
 
+
+
 class HandleTypeKind extends bindings.MojoEnum {
   static const HandleTypeKind unspecified = const HandleTypeKind._(0);
   static const HandleTypeKind messagePipe = const HandleTypeKind._(1);
@@ -334,11 +346,15 @@ class HandleTypeKind extends bindings.MojoEnum {
         return 'HandleTypeKind.dataPipeProducer';
       case sharedBuffer:
         return 'HandleTypeKind.sharedBuffer';
+      default:
+        return null;
     }
   }
 
   int toJson() => mojoEnumValue;
 }
+
+
 
 class HandleType extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
@@ -418,6 +434,8 @@ class HandleType extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class ArrayType extends bindings.Struct {
@@ -507,6 +525,8 @@ class ArrayType extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class MapType extends bindings.Struct {
@@ -602,6 +622,8 @@ class MapType extends bindings.Struct {
 }
 
 
+
+
 class TypeReference extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(32, 0)
@@ -694,6 +716,8 @@ class TypeReference extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class StructField extends bindings.Struct {
@@ -795,6 +819,8 @@ class StructField extends bindings.Struct {
 }
 
 
+
+
 class DefaultKeyword extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
@@ -851,6 +877,8 @@ class DefaultKeyword extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class StructVersion extends bindings.Struct {
@@ -936,6 +964,8 @@ class StructVersion extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class MojomStruct extends bindings.Struct {
@@ -1060,6 +1090,8 @@ class MojomStruct extends bindings.Struct {
 }
 
 
+
+
 class UnionField extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(40, 0)
@@ -1148,6 +1180,8 @@ class UnionField extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class MojomUnion extends bindings.Struct {
@@ -1242,6 +1276,8 @@ class MojomUnion extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class EnumValue extends bindings.Struct {
@@ -1339,6 +1375,8 @@ class EnumValue extends bindings.Struct {
 }
 
 
+
+
 class MojomEnum extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -1431,6 +1469,8 @@ class MojomEnum extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class MojomMethod extends bindings.Struct {
@@ -1528,6 +1568,8 @@ class MojomMethod extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class MojomInterface extends bindings.Struct {
@@ -1657,6 +1699,8 @@ class MojomInterface extends bindings.Struct {
 }
 
 
+
+
 class UserValueReference extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(40, 0)
@@ -1740,6 +1784,8 @@ class UserValueReference extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class DeclaredConstant extends bindings.Struct {
@@ -1836,6 +1882,8 @@ class DeclaredConstant extends bindings.Struct {
 }
 
 
+
+
 class Attribute extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(32, 0)
@@ -1914,6 +1962,8 @@ class Attribute extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class DeclarationData extends bindings.Struct {
@@ -2076,6 +2126,8 @@ class DeclarationData extends bindings.Struct {
 }
 
 
+
+
 class SourceFileInfo extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -2159,6 +2211,8 @@ class SourceFileInfo extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class ContainedDeclarations extends bindings.Struct {
@@ -2271,6 +2325,8 @@ class ContainedDeclarations extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 
@@ -2488,6 +2544,8 @@ class Type extends bindings.Union {
 }
 
 
+
+
 enum UserDefinedTypeTag {
   enumType,
   structType,
@@ -2647,6 +2705,8 @@ class UserDefinedType extends bindings.Union {
 }
 
 
+
+
 enum DefaultFieldValueTag {
   value,
   defaultKeyword,
@@ -2750,6 +2810,8 @@ class DefaultFieldValue extends bindings.Union {
     return result;
   }
 }
+
+
 
 
 enum ValueTag {
@@ -2884,6 +2946,8 @@ class Value extends bindings.Union {
     return result;
   }
 }
+
+
 
 
 enum LiteralValueTag {
@@ -3241,6 +3305,8 @@ class LiteralValue extends bindings.Union {
 }
 
 
+
+
 enum UserDefinedValueTag {
   enumValue,
   declaredConstant,
@@ -3346,4 +3412,8 @@ class UserDefinedValue extends bindings.Union {
     return result;
   }
 }
+
+
+
+
 

@@ -8,6 +8,8 @@ import 'dart:async';
 
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:mojo/core.dart' as core;
+import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types;
+
 import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types_mojom;
 
 
@@ -160,6 +162,8 @@ class MojomFile extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class MojomFileGraph extends bindings.Struct {
@@ -418,6 +422,8 @@ class MojomFileGraph extends bindings.Struct {
 }
 
 
+
+
 class KeysByType extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(64, 0)
@@ -663,5 +669,9 @@ class KeysByType extends bindings.Struct {
     return map;
   }
 }
+
+
+
+
 
 
