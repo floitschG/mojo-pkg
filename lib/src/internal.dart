@@ -11,4 +11,5 @@ export 'isolate/internal_contract.dart'
   if ('dart.library.isolate') 'isolate/internal.dart';
 */
 
-export 'internal_contract.dart';
+// export 'internal_contract.dart';
+export 'dart:mojo.internal';

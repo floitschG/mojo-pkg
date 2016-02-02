@@ -19,6 +19,7 @@ import '../core.dart'
         MojoDataPipe,
         MojoDataPipeProducer,
         MojoDataPipeConsumer,
+        MojoEventSubscription,
         MojoSharedBuffer;
 
 /// This class contains static methods to send a stream of events to application
@@ -32,6 +33,8 @@ class MojoHandleWatcher {
   /// Instructs the MojoHandleWatcher isolate to add [handleToken] to the set of
   /// handles it watches, and to notify the calling isolate only for the events
   /// specified by [signals] using the send port [port].
+  // TODO(floitsch): what does "MojoHandleWatcher isolate" mean?
+  // TODO(floitsch): what is the calling isolate?
   ///
   /// The [handleToken] is a token that identifies the mojo-handle (but is
   /// usually not an instance of `MojoHandle`).
@@ -83,11 +86,11 @@ class MojoHandleWatcher {
   /// Returns an integer, encoding the result as specified in the [MojoResult]
   /// class. In particular, a successful operation returns [MojoResult.kOk].
   ///
-  /// The [deadline] is in milliseconds relative to
-  /// [MojoCoreNatives.timerMillisecondClock].
+  /// The [deadline] is in milliseconds, with
+  /// [MojoCoreNatives.timerMillisecondClock] as reference.
   ///
-  /// If the given [port] was already registered for a timer, then the old
-  /// value is discarded.
+  /// If the given [port] was already registered for a timer (in any isolate),
+  /// then the old value is discarded.
   ///
   /// A negative [deadline] is used to remove a port. That is, a negative value
   /// is ignored after any existing value for the port has been discarded.
@@ -164,7 +167,8 @@ class MojoHandleNatives {
         "MojoHandleNatives.reportOpenHandles on contract");
   }
 
-  /// Updates the description of the given [handleToken] in the set of open handles.
+  /// Updates the description of the given [handleToken] in the set of open
+  /// handles.
   ///
   /// The [handleToken] is a token that identifies the mojo-handle (but is
   /// usually not an instance of `MojoHandle`).
@@ -179,12 +183,13 @@ class MojoHandleNatives {
   /// Returns an integer, encoding the result as specified in the [MojoResult]
   /// class. In particular, a successful operation returns [MojoResult.kOk].
   ///
-  /// When [eventStream] (currently an Instance of the EventStream class) dies,
-  /// invokes [close] on the [handleToken].
+  /// When [eventStream] (currently an Instance of the [MojoEventSubscription]
+  /// class) is garbage-collected, invokes [close] on the [handleToken].
   ///
   /// The [handleToken] is a token that identifies the mojo-handle (but is
   /// usually not an instance of `MojoHandle`). In particular they are often
-  /// integers, which is why the finalizer can't be directly on the [handleToken].
+  /// integers, which is why the finalizer can't be directly on the
+  /// [handleToken].
   ///
   /// Well-behaving programs should close their handles themselves, and
   /// finalizers wouldn't be necessary in that case.
@@ -299,12 +304,12 @@ class MojoMessagePipeNatives {
   /// The [handleToken] is a token that identifies the mojo-handle (but is
   /// usually not an instance of `MojoHandle`).
   ///
-  /// Both [data], and [handleTokens] may be null. If [data] is null, then [numBytes]
-  /// must be 0.
+  /// Both [data], and [handleTokens] may be null. If [data] is null, then
+  /// [numBytes] must be 0.
   ///
   /// A message is always read in its entirety. That is, if a message doesn't
-  /// fit into [data] and/or [handleTokens], then the message is left in the pipe or
-  /// discarded (see the description of [flags] below).
+  /// fit into [data] and/or [handleTokens], then the message is left in the
+  /// pipe or discarded (see the description of [flags] below).
   ///
   /// If the message wasn't read because [data] or [handleTokens] was too small,
   /// the result-integer is set to [MojoResult.kResourceExhausted].
@@ -599,8 +604,8 @@ class MojoSharedBufferNatives {
     throw new UnsupportedError("MojoSharedBufferNatives.Create on contract");
   }
 
-  /// Duplicates the given [bufferHandleToken] so that it can be shared through a
-  /// message pipe.
+  /// Duplicates the given [bufferHandleToken] so that it can be shared through
+  /// a message pipe.
   ///
   /// Returns a list of exactly 2 elements:
   /// 1. the result integer, encoded as specified in [MojoResult]. In
