@@ -102,8 +102,9 @@ class ApplicationConnection {
   }
 
   void _errorHandler(Object e) {
-    close().then((_) {
+    _localServiceProvider.close().then((_) {
       if (onError != null) onError(e);
+      _localServiceProvider = null;
     });
   }
 
