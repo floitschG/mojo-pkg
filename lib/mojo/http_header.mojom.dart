@@ -68,10 +68,20 @@ class HttpHeader extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeString(name, 8, false);
-    
-    encoder0.encodeString(value, 16, false);
+    try {
+      encoder0.encodeString(name, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "name of struct HttpHeader: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeString(value, 16, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "value of struct HttpHeader: $e";
+      rethrow;
+    }
   }
 
   String toString() {

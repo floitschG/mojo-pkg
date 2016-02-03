@@ -170,28 +170,62 @@ class UrlRequest extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeString(url, 8, false);
-    
-    encoder0.encodeString(method, 16, false);
-    
-    if (headers == null) {
-      encoder0.encodeNullPointer(24, true);
-    } else {
-      var encoder1 = encoder0.encodePointerArray(headers.length, 24, bindings.kUnspecifiedArrayLength);
-      for (int i0 = 0; i0 < headers.length; ++i0) {
-        
-        encoder1.encodeStruct(headers[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
-      }
+    try {
+      encoder0.encodeString(url, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "url of struct UrlRequest: $e";
+      rethrow;
     }
-    
-    encoder0.encodeConsumerHandleArray(body, 32, bindings.kArrayNullable, bindings.kUnspecifiedArrayLength);
-    
-    encoder0.encodeUint32(responseBodyBufferSize, 40);
-    
-    encoder0.encodeBool(autoFollowRedirects, 44, 0);
-    
-    encoder0.encodeEnum(cacheMode, 48);
+    try {
+      encoder0.encodeString(method, 16, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "method of struct UrlRequest: $e";
+      rethrow;
+    }
+    try {
+      if (headers == null) {
+        encoder0.encodeNullPointer(24, true);
+      } else {
+        var encoder1 = encoder0.encodePointerArray(headers.length, 24, bindings.kUnspecifiedArrayLength);
+        for (int i0 = 0; i0 < headers.length; ++i0) {
+          encoder1.encodeStruct(headers[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
+        }
+      }
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "headers of struct UrlRequest: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeConsumerHandleArray(body, 32, bindings.kArrayNullable, bindings.kUnspecifiedArrayLength);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "body of struct UrlRequest: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeUint32(responseBodyBufferSize, 40);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "responseBodyBufferSize of struct UrlRequest: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeBool(autoFollowRedirects, 44, 0);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "autoFollowRedirects of struct UrlRequest: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeEnum(cacheMode, 48);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "cacheMode of struct UrlRequest: $e";
+      rethrow;
+    }
   }
 
   String toString() {

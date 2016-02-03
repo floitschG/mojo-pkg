@@ -85,20 +85,34 @@ class _ApplicationInitializeParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeInterface(shell, 8, false);
-    
-    if (args == null) {
-      encoder0.encodeNullPointer(16, true);
-    } else {
-      var encoder1 = encoder0.encodePointerArray(args.length, 16, bindings.kUnspecifiedArrayLength);
-      for (int i0 = 0; i0 < args.length; ++i0) {
-        
-        encoder1.encodeString(args[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
-      }
+    try {
+      encoder0.encodeInterface(shell, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "shell of struct _ApplicationInitializeParams: $e";
+      rethrow;
     }
-    
-    encoder0.encodeString(url, 24, false);
+    try {
+      if (args == null) {
+        encoder0.encodeNullPointer(16, true);
+      } else {
+        var encoder1 = encoder0.encodePointerArray(args.length, 16, bindings.kUnspecifiedArrayLength);
+        for (int i0 = 0; i0 < args.length; ++i0) {
+          encoder1.encodeString(args[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
+        }
+      }
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "args of struct _ApplicationInitializeParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeString(url, 24, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "url of struct _ApplicationInitializeParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -182,14 +196,34 @@ class _ApplicationAcceptConnectionParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeString(requestorUrl, 8, false);
-    
-    encoder0.encodeInterfaceRequest(services, 16, true);
-    
-    encoder0.encodeInterface(exposedServices, 20, true);
-    
-    encoder0.encodeString(resolvedUrl, 32, false);
+    try {
+      encoder0.encodeString(requestorUrl, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "requestorUrl of struct _ApplicationAcceptConnectionParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeInterfaceRequest(services, 16, true);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "services of struct _ApplicationAcceptConnectionParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeInterface(exposedServices, 20, true);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "exposedServices of struct _ApplicationAcceptConnectionParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeString(resolvedUrl, 32, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "resolvedUrl of struct _ApplicationAcceptConnectionParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {

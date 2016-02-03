@@ -70,10 +70,20 @@ class _ServiceDescriberDescribeServiceParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeString(interfaceName, 8, false);
-    
-    encoder0.encodeInterfaceRequest(descriptionRequest, 16, false);
+    try {
+      encoder0.encodeString(interfaceName, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "interfaceName of struct _ServiceDescriberDescribeServiceParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeInterfaceRequest(descriptionRequest, 16, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "descriptionRequest of struct _ServiceDescriberDescribeServiceParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -202,8 +212,13 @@ class ServiceDescriptionGetTopLevelInterfaceResponseParams extends bindings.Stru
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeStruct(mojomInterface, 8, false);
+    try {
+      encoder0.encodeStruct(mojomInterface, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "mojomInterface of struct ServiceDescriptionGetTopLevelInterfaceResponseParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -271,8 +286,13 @@ class _ServiceDescriptionGetTypeDefinitionParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeString(typeKey, 8, false);
+    try {
+      encoder0.encodeString(typeKey, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "typeKey of struct _ServiceDescriptionGetTypeDefinitionParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -340,8 +360,13 @@ class ServiceDescriptionGetTypeDefinitionResponseParams extends bindings.Struct 
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeUnion(type, 8, true);
+    try {
+      encoder0.encodeUnion(type, 8, true);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "type of struct ServiceDescriptionGetTypeDefinitionResponseParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -506,30 +531,33 @@ class ServiceDescriptionGetAllTypeDefinitionsResponseParams extends bindings.Str
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    if (definitions == null) {
-      encoder0.encodeNullPointer(8, true);
-    } else {
-      var encoder1 = encoder0.encoderForMap(8);
-      int size0 = definitions.length;
-      var keys0 = definitions.keys.toList();
-      var values0 = definitions.values.toList();
-      
-      {
-        var encoder2 = encoder1.encodePointerArray(keys0.length, bindings.ArrayDataHeader.kHeaderSize, bindings.kUnspecifiedArrayLength);
-        for (int i1 = 0; i1 < keys0.length; ++i1) {
-          
-          encoder2.encodeString(keys0[i1], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+    try {
+      if (definitions == null) {
+        encoder0.encodeNullPointer(8, true);
+      } else {
+        var encoder1 = encoder0.encoderForMap(8);
+        int size0 = definitions.length;
+        var keys0 = definitions.keys.toList();
+        var values0 = definitions.values.toList();
+        
+        {
+          var encoder2 = encoder1.encodePointerArray(keys0.length, bindings.ArrayDataHeader.kHeaderSize, bindings.kUnspecifiedArrayLength);
+          for (int i1 = 0; i1 < keys0.length; ++i1) {
+            encoder2.encodeString(keys0[i1], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+          }
+        }
+        
+        {
+          var encoder2 = encoder1.encodeUnionArray(values0.length, bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize, bindings.kUnspecifiedArrayLength);
+          for (int i1 = 0; i1 < values0.length; ++i1) {
+            encoder2.encodeUnion(values0[i1], bindings.ArrayDataHeader.kHeaderSize + bindings.kUnionSize * i1, false);
+          }
         }
       }
-      
-      {
-        var encoder2 = encoder1.encodeUnionArray(values0.length, bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize, bindings.kUnspecifiedArrayLength);
-        for (int i1 = 0; i1 < values0.length; ++i1) {
-          
-          encoder2.encodeUnion(values0[i1], bindings.ArrayDataHeader.kHeaderSize + bindings.kUnionSize * i1, false);
-        }
-      }
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "definitions of struct ServiceDescriptionGetAllTypeDefinitionsResponseParams: $e";
+      rethrow;
     }
   }
 

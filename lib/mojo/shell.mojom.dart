@@ -75,12 +75,27 @@ class _ShellConnectToApplicationParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeString(applicationUrl, 8, false);
-    
-    encoder0.encodeInterfaceRequest(services, 16, true);
-    
-    encoder0.encodeInterface(exposedServices, 20, true);
+    try {
+      encoder0.encodeString(applicationUrl, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "applicationUrl of struct _ShellConnectToApplicationParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeInterfaceRequest(services, 16, true);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "services of struct _ShellConnectToApplicationParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeInterface(exposedServices, 20, true);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "exposedServices of struct _ShellConnectToApplicationParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -149,8 +164,13 @@ class _ShellCreateApplicationConnectorParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeInterfaceRequest(applicationConnectorRequest, 8, false);
+    try {
+      encoder0.encodeInterfaceRequest(applicationConnectorRequest, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "applicationConnectorRequest of struct _ShellCreateApplicationConnectorParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {

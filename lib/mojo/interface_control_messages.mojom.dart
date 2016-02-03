@@ -76,12 +76,27 @@ class RunMessageParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeUint32(reserved0, 8);
-    
-    encoder0.encodeUint32(reserved1, 12);
-    
-    encoder0.encodeStruct(queryVersion, 16, false);
+    try {
+      encoder0.encodeUint32(reserved0, 8);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "reserved0 of struct RunMessageParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeUint32(reserved1, 12);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "reserved1 of struct RunMessageParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeStruct(queryVersion, 16, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "queryVersion of struct RunMessageParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -164,12 +179,27 @@ class RunResponseMessageParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeUint32(reserved0, 8);
-    
-    encoder0.encodeUint32(reserved1, 12);
-    
-    encoder0.encodeStruct(queryVersionResult, 16, false);
+    try {
+      encoder0.encodeUint32(reserved0, 8);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "reserved0 of struct RunResponseMessageParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeUint32(reserved1, 12);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "reserved1 of struct RunResponseMessageParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeStruct(queryVersionResult, 16, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "queryVersionResult of struct RunResponseMessageParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -301,8 +331,13 @@ class QueryVersionResult extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeUint32(version, 8);
+    try {
+      encoder0.encodeUint32(version, 8);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "version of struct QueryVersionResult: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -381,12 +416,27 @@ class RunOrClosePipeMessageParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeUint32(reserved0, 8);
-    
-    encoder0.encodeUint32(reserved1, 12);
-    
-    encoder0.encodeStruct(requireVersion, 16, false);
+    try {
+      encoder0.encodeUint32(reserved0, 8);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "reserved0 of struct RunOrClosePipeMessageParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeUint32(reserved1, 12);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "reserved1 of struct RunOrClosePipeMessageParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeStruct(requireVersion, 16, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "requireVersion of struct RunOrClosePipeMessageParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -458,8 +508,13 @@ class RequireVersion extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeUint32(version, 8);
+    try {
+      encoder0.encodeUint32(version, 8);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "version of struct RequireVersion: $e";
+      rethrow;
+    }
   }
 
   String toString() {

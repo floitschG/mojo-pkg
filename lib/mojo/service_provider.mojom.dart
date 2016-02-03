@@ -68,10 +68,20 @@ class _ServiceProviderConnectToServiceParams extends bindings.Struct {
 
   void encode(bindings.Encoder encoder) {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeString(interfaceName, 8, false);
-    
-    encoder0.encodeMessagePipeHandle(pipe, 16, false);
+    try {
+      encoder0.encodeString(interfaceName, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "interfaceName of struct _ServiceProviderConnectToServiceParams: $e";
+      rethrow;
+    }
+    try {
+      encoder0.encodeMessagePipeHandle(pipe, 16, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "pipe of struct _ServiceProviderConnectToServiceParams: $e";
+      rethrow;
+    }
   }
 
   String toString() {
