@@ -4,7 +4,7 @@
 
 part of application;
 
-typedef Object ServiceFactory(core.MojoMessagePipeEndpoint endpoint);
+typedef void ServiceFactory(core.MojoMessagePipeEndpoint endpoint);
 typedef void FallbackServiceFactory(
     String interfaceName, core.MojoMessagePipeEndpoint endpoint);
 
@@ -39,27 +39,27 @@ class LocalServiceProvider implements ServiceProvider {
   }
 }
 
-// Encapsulates a pair of ServiceProviders that enable services (interface
-// implementations) to be provided to a remote application as well as exposing
-// services provided by a remote application. ApplicationConnection
-// objects are returned by the Application ConnectToApplication() method
-// and they're passed to the Application AcceptConnection() method.
-//
-// To request a service from the remote application:
-//   var proxy = applicationConnection.requestService(ViewManagerClientName);
-//
-// To provide a service to the remote application, specify a function that
-// returns a service. For example:
-//   applicationConnection.provideService(ViewManagerClientName, (pipe) =>
-//       new ViewManagerClientImpl(pipe));
-//
-// To handle requests for any interface, set fallbackServiceFactory to a
-// function that takes ownership of the incoming message pipe endpoint. If the
-// fallbackServiceFactory function doesn't bind the pipe, it should close it.
-//
-// The fallbackServiceFactory is only used if a service wasn't specified
-// with provideService().
-
+/// [ApplicationConnection] encapsulates a pair of ServiceProviders that enable
+/// services (interface implementations) to be provided to a remote application
+/// as well as exposing services provided by a remote application.
+/// [ApplicationConnection] objects are returned by
+/// [Application.connectToApplication], and are passed to
+/// [Application.acceptConnection].
+///
+/// To request a service (e.g. `Foo`) from the remote application:
+///   var fooProxy =
+///       applicationConnection.requestService(new FooProxy.unbound());
+///
+/// To provide a service to the remote application, specify a function that
+/// instantiantes a service. For example:
+///   applicationConnection.provideService(
+///       Foo.serviceName, (pipe) => new FooImpl(pipe));
+/// or more succinctly:
+///   applicationConnection.provideService(Foo.serviceName, new FooImpl#);
+///
+/// To handle requests for services beyond those set up with [provideService],
+/// set [fallbackServiceFactory] to a function that instantiates a service as in
+/// the [provideService] case, or closes the pipe.
 class ApplicationConnection {
   ServiceProviderProxy remoteServiceProvider;
   LocalServiceProvider _localServiceProvider;
