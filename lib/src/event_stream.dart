@@ -110,8 +110,10 @@ class MojoEventSubscription {
   }
 
   void _localClose() {
-    _handle.close();
-    _handle = null;
+    if (_handle != null) {
+      _handle.close();
+      _handle = null;
+    }
     if (_receivePort != null) {
       _receivePort.close();
       _receivePort = null;
