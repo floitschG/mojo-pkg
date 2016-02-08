@@ -16,7 +16,7 @@ import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types_
 
 class MojomFile extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
-    const bindings.StructDataHeader(56, 0)
+    const bindings.StructDataHeader(64, 0)
   ];
   String fileName = null;
   String specifiedFileName = null;
@@ -24,6 +24,7 @@ class MojomFile extends bindings.Struct {
   List<mojom_types_mojom.Attribute> attributes = null;
   List<String> imports = null;
   KeysByType declaredMojomObjects = null;
+  List<int> serializedRuntimeTypeInfo = null;
 
   MojomFile() : super(kVersions.last.size);
 
@@ -106,6 +107,10 @@ class MojomFile extends bindings.Struct {
       var decoder1 = decoder0.decodePointer(48, false);
       result.declaredMojomObjects = KeysByType.decode(decoder1);
     }
+    if (mainDataHeader.version >= 0) {
+      
+      result.serializedRuntimeTypeInfo = decoder0.decodeUint8Array(56, bindings.kArrayNullable, bindings.kUnspecifiedArrayLength);
+    }
     return result;
   }
 
@@ -167,6 +172,13 @@ class MojomFile extends bindings.Struct {
           "declaredMojomObjects of struct MojomFile: $e";
       rethrow;
     }
+    try {
+      encoder0.encodeUint8Array(serializedRuntimeTypeInfo, 56, bindings.kArrayNullable, bindings.kUnspecifiedArrayLength);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "serializedRuntimeTypeInfo of struct MojomFile: $e";
+      rethrow;
+    }
   }
 
   String toString() {
@@ -176,7 +188,8 @@ class MojomFile extends bindings.Struct {
            "moduleNamespace: $moduleNamespace" ", "
            "attributes: $attributes" ", "
            "imports: $imports" ", "
-           "declaredMojomObjects: $declaredMojomObjects" ")";
+           "declaredMojomObjects: $declaredMojomObjects" ", "
+           "serializedRuntimeTypeInfo: $serializedRuntimeTypeInfo" ")";
   }
 
   Map toJson() {
@@ -187,6 +200,7 @@ class MojomFile extends bindings.Struct {
     map["attributes"] = attributes;
     map["imports"] = imports;
     map["declaredMojomObjects"] = declaredMojomObjects;
+    map["serializedRuntimeTypeInfo"] = serializedRuntimeTypeInfo;
     return map;
   }
 }
@@ -731,6 +745,306 @@ class KeysByType extends bindings.Struct {
     map["embeddedEnums"] = embeddedEnums;
     map["topLevelConstants"] = topLevelConstants;
     map["embeddedConstants"] = embeddedConstants;
+    return map;
+  }
+}
+
+
+
+
+class ServiceTypeInfo extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(24, 0)
+  ];
+  String topLevelInterface = null;
+  List<String> completeTypeSet = null;
+
+  ServiceTypeInfo() : super(kVersions.last.size);
+
+  static ServiceTypeInfo deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
+    return result;
+  }
+
+  static ServiceTypeInfo decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    ServiceTypeInfo result = new ServiceTypeInfo();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      result.topLevelInterface = decoder0.decodeString(8, false);
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(16, false);
+      {
+        var si1 = decoder1.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
+        result.completeTypeSet = new List<String>(si1.numElements);
+        for (int i1 = 0; i1 < si1.numElements; ++i1) {
+          
+          result.completeTypeSet[i1] = decoder1.decodeString(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+        }
+      }
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    try {
+      encoder0.encodeString(topLevelInterface, 8, false);
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "topLevelInterface of struct ServiceTypeInfo: $e";
+      rethrow;
+    }
+    try {
+      if (completeTypeSet == null) {
+        encoder0.encodeNullPointer(16, false);
+      } else {
+        var encoder1 = encoder0.encodePointerArray(completeTypeSet.length, 16, bindings.kUnspecifiedArrayLength);
+        for (int i0 = 0; i0 < completeTypeSet.length; ++i0) {
+          encoder1.encodeString(completeTypeSet[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
+        }
+      }
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "completeTypeSet of struct ServiceTypeInfo: $e";
+      rethrow;
+    }
+  }
+
+  String toString() {
+    return "ServiceTypeInfo("
+           "topLevelInterface: $topLevelInterface" ", "
+           "completeTypeSet: $completeTypeSet" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["topLevelInterface"] = topLevelInterface;
+    map["completeTypeSet"] = completeTypeSet;
+    return map;
+  }
+}
+
+
+
+
+class RuntimeTypeInfo extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(24, 0)
+  ];
+  Map<String, ServiceTypeInfo> servicesByName = null;
+  Map<String, mojom_types_mojom.UserDefinedType> typeMap = null;
+
+  RuntimeTypeInfo() : super(kVersions.last.size);
+
+  static RuntimeTypeInfo deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
+    return result;
+  }
+
+  static RuntimeTypeInfo decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    RuntimeTypeInfo result = new RuntimeTypeInfo();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(8, false);
+      {
+        decoder1.decodeDataHeaderForMap();
+        List<String> keys0;
+        List<ServiceTypeInfo> values0;
+        {
+          
+          var decoder2 = decoder1.decodePointer(bindings.ArrayDataHeader.kHeaderSize, false);
+          {
+            var si2 = decoder2.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
+            keys0 = new List<String>(si2.numElements);
+            for (int i2 = 0; i2 < si2.numElements; ++i2) {
+              
+              keys0[i2] = decoder2.decodeString(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i2, false);
+            }
+          }
+        }
+        {
+          
+          var decoder2 = decoder1.decodePointer(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize, false);
+          {
+            var si2 = decoder2.decodeDataHeaderForPointerArray(keys0.length);
+            values0 = new List<ServiceTypeInfo>(si2.numElements);
+            for (int i2 = 0; i2 < si2.numElements; ++i2) {
+              
+              var decoder3 = decoder2.decodePointer(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i2, false);
+              values0[i2] = ServiceTypeInfo.decode(decoder3);
+            }
+          }
+        }
+        result.servicesByName = new Map<String, ServiceTypeInfo>.fromIterables(
+            keys0, values0);
+      }
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(16, false);
+      {
+        decoder1.decodeDataHeaderForMap();
+        List<String> keys0;
+        List<mojom_types_mojom.UserDefinedType> values0;
+        {
+          
+          var decoder2 = decoder1.decodePointer(bindings.ArrayDataHeader.kHeaderSize, false);
+          {
+            var si2 = decoder2.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
+            keys0 = new List<String>(si2.numElements);
+            for (int i2 = 0; i2 < si2.numElements; ++i2) {
+              
+              keys0[i2] = decoder2.decodeString(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i2, false);
+            }
+          }
+        }
+        {
+          
+          var decoder2 = decoder1.decodePointer(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize, false);
+          {
+            var si2 = decoder2.decodeDataHeaderForUnionArray(keys0.length);
+            values0 = new List<mojom_types_mojom.UserDefinedType>(si2.numElements);
+            for (int i2 = 0; i2 < si2.numElements; ++i2) {
+              
+                values0[i2] = mojom_types_mojom.UserDefinedType.decode(decoder2, bindings.ArrayDataHeader.kHeaderSize + bindings.kUnionSize * i2);
+                if (values0[i2] == null) {
+                  throw new bindings.MojoCodecError(
+                    'Trying to decode null union for non-nullable mojom_types_mojom.UserDefinedType.');
+                }
+            }
+          }
+        }
+        result.typeMap = new Map<String, mojom_types_mojom.UserDefinedType>.fromIterables(
+            keys0, values0);
+      }
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    try {
+      if (servicesByName == null) {
+        encoder0.encodeNullPointer(8, false);
+      } else {
+        var encoder1 = encoder0.encoderForMap(8);
+        int size0 = servicesByName.length;
+        var keys0 = servicesByName.keys.toList();
+        var values0 = servicesByName.values.toList();
+        
+        {
+          var encoder2 = encoder1.encodePointerArray(keys0.length, bindings.ArrayDataHeader.kHeaderSize, bindings.kUnspecifiedArrayLength);
+          for (int i1 = 0; i1 < keys0.length; ++i1) {
+            encoder2.encodeString(keys0[i1], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+          }
+        }
+        
+        {
+          var encoder2 = encoder1.encodePointerArray(values0.length, bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize, bindings.kUnspecifiedArrayLength);
+          for (int i1 = 0; i1 < values0.length; ++i1) {
+            encoder2.encodeStruct(values0[i1], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+          }
+        }
+      }
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "servicesByName of struct RuntimeTypeInfo: $e";
+      rethrow;
+    }
+    try {
+      if (typeMap == null) {
+        encoder0.encodeNullPointer(16, false);
+      } else {
+        var encoder1 = encoder0.encoderForMap(16);
+        int size0 = typeMap.length;
+        var keys0 = typeMap.keys.toList();
+        var values0 = typeMap.values.toList();
+        
+        {
+          var encoder2 = encoder1.encodePointerArray(keys0.length, bindings.ArrayDataHeader.kHeaderSize, bindings.kUnspecifiedArrayLength);
+          for (int i1 = 0; i1 < keys0.length; ++i1) {
+            encoder2.encodeString(keys0[i1], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+          }
+        }
+        
+        {
+          var encoder2 = encoder1.encodeUnionArray(values0.length, bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize, bindings.kUnspecifiedArrayLength);
+          for (int i1 = 0; i1 < values0.length; ++i1) {
+            encoder2.encodeUnion(values0[i1], bindings.ArrayDataHeader.kHeaderSize + bindings.kUnionSize * i1, false);
+          }
+        }
+      }
+    } on bindings.MojoCodecError catch(e) {
+      e.message = "Error encountered while encoding field "
+          "typeMap of struct RuntimeTypeInfo: $e";
+      rethrow;
+    }
+  }
+
+  String toString() {
+    return "RuntimeTypeInfo("
+           "servicesByName: $servicesByName" ", "
+           "typeMap: $typeMap" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["servicesByName"] = servicesByName;
+    map["typeMap"] = typeMap;
     return map;
   }
 }
