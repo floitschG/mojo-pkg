@@ -1763,7 +1763,7 @@ class MojomInterface extends bindings.Struct {
     const bindings.StructDataHeader(32, 0)
   ];
   DeclarationData declData = null;
-  String interfaceName = null;
+  String serviceName_ = null;
   Map<int, MojomMethod> methods = null;
 
   MojomInterface() : super(kVersions.last.size);
@@ -1808,7 +1808,7 @@ class MojomInterface extends bindings.Struct {
     }
     if (mainDataHeader.version >= 0) {
       
-      result.interfaceName = decoder0.decodeString(16, false);
+      result.serviceName_ = decoder0.decodeString(16, true);
     }
     if (mainDataHeader.version >= 0) {
       
@@ -1851,10 +1851,10 @@ class MojomInterface extends bindings.Struct {
       rethrow;
     }
     try {
-      encoder0.encodeString(interfaceName, 16, false);
+      encoder0.encodeString(serviceName_, 16, true);
     } on bindings.MojoCodecError catch(e) {
       e.message = "Error encountered while encoding field "
-          "interfaceName of struct MojomInterface: $e";
+          "serviceName_ of struct MojomInterface: $e";
       rethrow;
     }
     try {
@@ -1884,14 +1884,14 @@ class MojomInterface extends bindings.Struct {
   String toString() {
     return "MojomInterface("
            "declData: $declData" ", "
-           "interfaceName: $interfaceName" ", "
+           "serviceName_: $serviceName_" ", "
            "methods: $methods" ")";
   }
 
   Map toJson() {
     Map map = new Map();
     map["declData"] = declData;
-    map["interfaceName"] = interfaceName;
+    map["serviceName_"] = serviceName_;
     map["methods"] = methods;
     return map;
   }
