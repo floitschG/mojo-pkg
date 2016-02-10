@@ -11,7 +11,6 @@ import 'package:mojo/core.dart' as core;
 import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types;
 
 import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types_mojom;
-const String serviceDescriberInterfaceName = "_ServiceDescriber";
 
 
 
