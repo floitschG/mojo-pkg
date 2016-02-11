@@ -64,6 +64,8 @@ class ApplicationConnection {
   ServiceProviderProxy remoteServiceProvider;
   LocalServiceProvider _localServiceProvider;
   final _nameToServiceFactory = new HashMap<String, ServiceFactory>();
+  final _serviceDescriptions =
+      new HashMap<String, service_describer.ServiceDescription>();
   FallbackServiceFactory _fallbackServiceFactory;
   core.ErrorHandler onError;
 
@@ -80,8 +82,8 @@ class ApplicationConnection {
     _fallbackServiceFactory = f;
   }
 
-  bindings.ProxyBase requestService(
-      bindings.ProxyBase proxy, [String serviceName]) {
+  bindings.ProxyBase requestService(bindings.ProxyBase proxy,
+      [String serviceName]) {
     assert(!proxy.impl.isBound &&
         (remoteServiceProvider != null) &&
         remoteServiceProvider.impl.isBound);
@@ -95,10 +97,28 @@ class ApplicationConnection {
     return proxy;
   }
 
-  void provideService(String interfaceName, ServiceFactory factory) {
+  /// Prepares this connection to provide the specified service when a call for
+  /// the given [interfaceName] is received. The provided service can also
+  /// choose to expose a service description.
+  void provideService(String interfaceName, ServiceFactory factory,
+      {service_describer.ServiceDescription description}) {
     assert(_localServiceProvider != null);
     assert(interfaceName != null);
     _nameToServiceFactory[interfaceName] = factory;
+    if (description != null) {
+      _serviceDescriptions[interfaceName] = description;
+      _provideServiceDescriber();
+    }
+  }
+
+  /// Provides the ServiceDescriber interface for the set of services whose
+  /// service descriptions have been provided (see provideService).
+  void _provideServiceDescriber() {
+    String describerName = service_describer.ServiceDescriber.serviceName;
+    if (_nameToServiceFactory[describerName] == null) {
+      _nameToServiceFactory[describerName] = (endpoint) =>
+          new _ServiceDescriberImpl(_serviceDescriptions, endpoint);
+    }
   }
 
   void _errorHandler(Object e) {

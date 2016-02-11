@@ -193,11 +193,14 @@ const int _Shell_createApplicationConnectorName = 1;
 
 
 class _ShellServiceDescription implements service_describer.ServiceDescription {
-  dynamic getTopLevelInterface([Function responseFactory]) => null;
+  dynamic getTopLevelInterface([Function responseFactory]) =>
+      responseFactory(null);
 
-  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) =>
+      responseFactory(null);
 
-  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+  dynamic getAllTypeDefinitions([Function responseFactory]) =>
+      responseFactory(null);
 }
 
 abstract class Shell {
@@ -385,8 +388,13 @@ class ShellStub extends bindings.Stub {
 
   int get version => 0;
 
-  service_describer.ServiceDescription get serviceDescription =>
-    new _ShellServiceDescription();
+  static service_describer.ServiceDescription _cachedServiceDescription;
+  static service_describer.ServiceDescription get serviceDescription {
+    if (_cachedServiceDescription == null) {
+      _cachedServiceDescription = new _ShellServiceDescription();
+    }
+    return _cachedServiceDescription;
+  }
 }
 
 

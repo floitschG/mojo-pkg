@@ -192,11 +192,14 @@ const int _ApplicationConnector_duplicateName = 1;
 
 
 class _ApplicationConnectorServiceDescription implements service_describer.ServiceDescription {
-  dynamic getTopLevelInterface([Function responseFactory]) => null;
+  dynamic getTopLevelInterface([Function responseFactory]) =>
+      responseFactory(null);
 
-  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) =>
+      responseFactory(null);
 
-  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+  dynamic getAllTypeDefinitions([Function responseFactory]) =>
+      responseFactory(null);
 }
 
 abstract class ApplicationConnector {
@@ -384,8 +387,13 @@ class ApplicationConnectorStub extends bindings.Stub {
 
   int get version => 0;
 
-  service_describer.ServiceDescription get serviceDescription =>
-    new _ApplicationConnectorServiceDescription();
+  static service_describer.ServiceDescription _cachedServiceDescription;
+  static service_describer.ServiceDescription get serviceDescription {
+    if (_cachedServiceDescription == null) {
+      _cachedServiceDescription = new _ApplicationConnectorServiceDescription();
+    }
+    return _cachedServiceDescription;
+  }
 }
 
 

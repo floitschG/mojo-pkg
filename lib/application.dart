@@ -17,3 +17,4 @@ import 'package:mojo/mojo/shell.mojom.dart' as shell_mojom;
 
 part 'src/application.dart';
 part 'src/application_connection.dart';
+part 'src/service_describer.dart';

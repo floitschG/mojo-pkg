@@ -580,11 +580,14 @@ const int _ServiceDescriber_describeServiceName = 0;
 
 
 class _ServiceDescriberServiceDescription implements ServiceDescription {
-  dynamic getTopLevelInterface([Function responseFactory]) => null;
+  dynamic getTopLevelInterface([Function responseFactory]) =>
+      responseFactory(null);
 
-  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) =>
+      responseFactory(null);
 
-  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+  dynamic getAllTypeDefinitions([Function responseFactory]) =>
+      responseFactory(null);
 }
 
 abstract class ServiceDescriber {
@@ -756,8 +759,13 @@ class ServiceDescriberStub extends bindings.Stub {
 
   int get version => 0;
 
-  ServiceDescription get serviceDescription =>
-    new _ServiceDescriberServiceDescription();
+  static ServiceDescription _cachedServiceDescription;
+  static ServiceDescription get serviceDescription {
+    if (_cachedServiceDescription == null) {
+      _cachedServiceDescription = new _ServiceDescriberServiceDescription();
+    }
+    return _cachedServiceDescription;
+  }
 }
 
 const int _ServiceDescription_getTopLevelInterfaceName = 0;
@@ -767,11 +775,14 @@ const int _ServiceDescription_getAllTypeDefinitionsName = 2;
 
 
 class _ServiceDescriptionServiceDescription implements ServiceDescription {
-  dynamic getTopLevelInterface([Function responseFactory]) => null;
+  dynamic getTopLevelInterface([Function responseFactory]) =>
+      responseFactory(null);
 
-  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) =>
+      responseFactory(null);
 
-  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+  dynamic getAllTypeDefinitions([Function responseFactory]) =>
+      responseFactory(null);
 }
 
 abstract class ServiceDescription {
@@ -1096,8 +1107,13 @@ class ServiceDescriptionStub extends bindings.Stub {
 
   int get version => 0;
 
-  ServiceDescription get serviceDescription =>
-    new _ServiceDescriptionServiceDescription();
+  static ServiceDescription _cachedServiceDescription;
+  static ServiceDescription get serviceDescription {
+    if (_cachedServiceDescription == null) {
+      _cachedServiceDescription = new _ServiceDescriptionServiceDescription();
+    }
+    return _cachedServiceDescription;
+  }
 }
 
 
