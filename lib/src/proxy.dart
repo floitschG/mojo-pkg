@@ -35,6 +35,11 @@ abstract class Proxy extends core.MojoEventHandler {
   /// call to [queryVersion] or [requireVersion] is made.
   int get version => _version;
 
+  /// Returns a service description, which exposes the mojom type information
+  /// of the service being proxied.
+  /// Note: The description is null or incomplete if type info is unavailable.
+  service_describer.ServiceDescription get description => null;
+
   void handleRead() {
     var result = endpoint.queryAndRead();
     if ((result.data == null) || (result.dataLength == 0)) {
@@ -241,6 +246,7 @@ abstract class Proxy extends core.MojoEventHandler {
 abstract class ProxyBase {
   final Proxy impl = null;
   final String serviceName = null;
+  Object get ptr;
 }
 
 /// Generated Proxy classes have a factory Proxy.connectToService which takes
