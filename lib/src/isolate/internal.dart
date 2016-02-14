@@ -14,16 +14,16 @@ import 'manager.dart';
 import '../../core.dart' show MojoResult;
 
 class MojoHandleWatcher {
-  static int add(Endpoint endpoint, SendPort port, int signals) {
-    return manager.addWatch(endpoint, port, signals);
+  static int add(List handleToken, SendPort port, int signals) {
+    return manager.addWatch(handleToken, port, signals);
   }
 
-  static int remove(Endpoint endpoint) {
-    return manager.removeWatch(endpoint);
+  static int remove(List handleToken) {
+    return manager.removeWatch(handleToken);
   }
 
-  static Future<int> close(Endpoint endpoint, {bool wait: false}) {
-    return manager.closeWatch(endpoint, wait);
+  static Future<int> close(List handleToken, {bool wait: false}) {
+    return manager.closeWatch(handleToken, wait);
   }
 
   static int timer(Object ignored, SendPort port, int deadline) {
@@ -43,7 +43,7 @@ class MojoCoreNatives {
 }
 
 class MojoHandleNatives {
-  static void addOpenHandle(Endpoint endpoint, {String description}) {
+  static void addOpenHandle(List handleToken, {String description}) {
     // TODO(floitsch): implement.
   }
 
@@ -53,56 +53,30 @@ class MojoHandleNatives {
 
   static bool reportOpenHandles() {
     // TODO(floitsch): implement.
+    return true;
   }
 
-  static bool setDescription(Endpoint endpoint, String description) {
+  static bool setDescription(List handleToken, String description) {
     // TODO(floitsch): implement.
+    return true;
   }
 
-  static int registerFinalizer(Object eventSubscription, Endpoint endpoint) {
+  static int registerFinalizer(Object eventSubscription, List handleToken) {
     // Do nothing.
+    return MojoResult.kOk;
   }
 
-  static int close(Endpoint endpoint) {
-    return manager.close(endpoint);
+  static int close(List handleToken) {
+    return manager.close(handleToken);
   }
 
-  /// Waits on the given [handleToken] for a signal.
-  ///
-  /// Returns a list of two elements. The first entry is an integer, encoding
-  /// if the operation was a success or not, as specified in the [MojoResult]
-  /// class. In particular, a successful operation is signaled by
-  /// [MojoResult.kOk]. The second entry is itself a List of 2 elements:
-  /// an integer of satisfied signals, and an integer of satisfiable signals.
-  /// Both entries are encoded as specified in [MojoHandleSignals].
-  ///
-  /// The [deadline] specifies how long the call should wait (if no signal is
-  /// triggered). If the deadline passes, the returned result-integer is
-  /// [MojoResult.kDeadlineExceeded]. If the deadline is 0, then the result
-  /// is only [MojoResult.kDeadlineExceeded] if no other termination condition
-  /// is already satisfied (see below).
-  ///
-  /// The [signals] integer encodes the signals this method should wait for.
-  /// The integer is encoded as specified in [MojoHandleSignals].
-  ///
-  /// Waits on the given handle until one of the following happens:
-  /// - A signal indicated by [signals] is satisfied.
-  /// - It becomes known that no signal indicated by [signals] will ever be
-  ///   satisfied (for example the handle has been closed on the other side).
-  /// - Until [deadline] has passed.
-  static List wait(Object handleToken, int signals, int deadline) {
-    throw new UnsupportedError("MojoHandleNatives.woit on contract");
+  static List wait(List handleToken, int signals, int deadline) {
+    return manager.wait(handleToken, signals, deadline);
   }
 
-  /// Waits on many handles at the same time.
-  ///
-  /// The returned value is similar to the result of [wait].
-  ///
-  /// Behaves as if [wait] was called on each of the [handleTokens] separately,
-  /// completing when the first would complete.
   static List waitMany(
       List<Object> handleTokens, List<int> signals, int deadline) {
-    throw new UnsupportedError("MojoHandleNatives.wainMany on contract");
+    return manager.waitMany(handleTokens, signals, deadline);
   }
 }
 
@@ -111,108 +85,21 @@ class MojoMessagePipeNatives {
     return manager.createPipe();
   }
 
-  /// Writes a message into the endpoint [handleToken].
-  ///
-  /// Returns a result-integer, encoded as specified in [MojoResult]. In
-  /// particular, [MojoResult.kOk] signals a successful write.
-  ///
-  /// The [handleToken] is a token that identifies the mojo-handle (but is
-  /// usually not an instance of `MojoHandle`).
-  ///
-  /// A message is composed of [numBytes] bytes of [data], and a list of
-  /// [handleTokens].
-  ///
-  /// The parameter [flags] is reserved for future use and should currently be
-  /// set to [MojoMessagePipeEndpoint.WRITE_FLAG_NONE] (equal to 0).
   static int MojoWriteMessage(Object handleToken, ByteData data, int numBytes,
       List<Object> handleTokens, int flags) {
-    throw new UnsupportedError(
-        "MojoMessagePipeNatives.MojoWriteMessage on contract");
+    return manager.writeMessage(
+        handleToken, data, numBytes, handleTokens, flags);
   }
 
-  /// Reads a message from the endpoint [handleToken].
-  ///
-  /// Returns `null` if the parameters are invalid. Otherwise returns a list of
-  /// exactly 3 elements:
-  /// 1. the result integer, encoded as specified in [MojoResult]. In
-  /// particular, [MojoResult.kOk] signals a successful read.
-  /// 2. the number of read bytes (or available bytes if the message couldn't
-  ///   be read).
-  /// 3. the number of read handles (or available handles if the message
-  ///   couldn't be read).
-  ///
-  /// If no message is available, the result-integer is set to
-  /// [MojoResult.kShouldWait].
-  ///
-  /// The [handleToken] is a token that identifies the mojo-handle (but is
-  /// usually not an instance of `MojoHandle`).
-  ///
-  /// Both [data], and [handleTokens] may be null. If [data] is null, then
-  /// [numBytes] must be 0.
-  ///
-  /// A message is always read in its entirety. That is, if a message doesn't
-  /// fit into [data] and/or [handleTokens], then the message is left in the
-  /// pipe or discarded (see the description of [flags] below).
-  ///
-  /// If the message wasn't read because [data] or [handleTokens] was too small,
-  /// the result-integer is set to [MojoResult.kResourceExhausted].
-  ///
-  /// The returned list *always* contains the size of the message (independent
-  /// if it was actually read into [data] and [handleTokens]).
-  /// A common pattern thus consists of invoking this method with
-  /// [data] and [handleTokens] set to `null` to query the size of the next
-  /// message that is in the pipe.
-  ///
-  /// The parameter [flags] may set to either
-  /// [MojoMessagePipeEndpoint.READ_FLAG_NONE] (equal to 0) or
-  /// [MojoMessagePipeEndpoint.READ_FLAG_MAY_DISCARD] (equal to 1). In the
-  /// latter case messages that couldn't be read (for example, because the
-  /// [data] or [handleTokens] wasn't big enough) are discarded.
   static List MojoReadMessage(Object handleToken, ByteData data, int numBytes,
       List<Object> handleTokens, int flags) {
-    throw new UnsupportedError(
-        "MojoMessagePipeNatives.MojoReadMessage on contract");
+    return manager.readMessage(
+        handleToken, data, numBytes, handleTokens, flags);
   }
 
-  /// Reads a message from the endpoint [handleToken].
-  ///
-  /// The result is returned in the provided list [result], which must have
-  /// a length of at least 5.
-  ///
-  /// The elements in [result] are:
-  /// 1. the result integer, encoded as specified in [MojoResult]. In
-  ///   particular, [MojoResult.kOk] signals a successful read. This value is
-  ///   only used as output.
-  /// 2. the [ByteData] data array. This entry is used both as input and output.
-  ///   If the array is non-null and big enough it is used to store the
-  ///   byte-data of the message. Otherwise a new [ByteData] array of the
-  ///   required length is allocated and stored in this slot.
-  /// 3. a list, used to store handles. This entry is used both as input and
-  ///   output. If the list is big enough it is filled with the read handles.
-  ///   Otherwise, a new list of the required length is allocated and used
-  ///   instead.
-  /// 4. the size of the read byte data. Only used as output.
-  /// 5. the number of read handles. Only used as output.
-  ///
-  /// The [handleToken] is a token that identifies the mojo-handle (but is
-  /// usually not an instance of `MojoHandle`).
-  ///
-  /// The parameter [flags] may set to either
-  /// [MojoMessagePipeEndpoint.READ_FLAG_NONE] (equal to 0) or
-  /// [MojoMessagePipeEndpoint.READ_FLAG_MAY_DISCARD] (equal to 1). In the
-  /// latter case messages that couldn't be read (for example, because the
-  /// [data] or [handles] wasn't big enough) are discarded.
-  ///
-  /// Also see [MojoReadMessage].
-  // TODO(floitsch): currently  'handles' is passed to the MojoReadMessage
-  // call to query the size (in the C++ code). Unless I'm wrong this means that
-  // with READ_FLAG_MAY_DISCARD the query would just drop the message...
-  // TODO(floitsch): The return was never used and never set by the C++ code.
-  // changed it to be void.
   static void MojoQueryAndReadMessage(
       Object handleToken, int flags, List result) {
-    throw new UnsupportedError(
-        "MojoMessagePipeNatives.MojoQueryAndReadMessage on contract");
+    return manager.queryAndReadMessage(handleToken, flags, result);
   }
 }
 
