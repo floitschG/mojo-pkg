@@ -12,4 +12,5 @@ export 'isolate/internal_contract.dart'
 */
 
 // export 'internal_contract.dart';
-export 'dart:mojo.internal';
+// export 'dart:mojo.internal';
+export 'isolate/internal.dart';
