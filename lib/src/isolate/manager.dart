@@ -82,6 +82,11 @@ class Manager {
     return new Future.value(resultCode ?? MojoResult.kOk);
   }
 
+  /// Notifies that the endpoint's status has changed.
+  ///
+  /// Is only called for changes that activate signals. For example, this
+  /// function is called when new data is available, but not if the data has
+  /// been read.
   void _notifyEndpointStatusChange(Endpoint endpoint) {
     watcher.notifyEndpointStatusChange(endpoint);
   }

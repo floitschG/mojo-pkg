@@ -32,10 +32,9 @@ class Watcher {
     SendPort notificationPort = watch[0];
     int signals = watch[1];
     int status = endpoint.status;
-    if (_satisfiesSignal(status, signals)) {
-      notificationPort.send(status);
+    int satisfiedSignals = status & signals;
+    if (satisfiedSignals != 0) {
+      notificationPort.send(satisfiedSignals);
     }
   }
-
-  bool _satisfiesSignal(int status, int signals) => (status & signals) != 0;
 }

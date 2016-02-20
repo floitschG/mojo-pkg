@@ -48,8 +48,8 @@ class Endpoint {
     creatorPort.send(msg);
   }
 
-  void sendToPeerManager(msg) {
-    manager.endpoints._sendToPeerManager(this, msg);
+  void sendToManager(msg) {
+    manager.endpoints._sendToManager(this, msg);
   }
 
   /// Whether this endpoint was bound, or is in the process of binding.
@@ -151,9 +151,13 @@ class EndpointManager {
   /// The manager has to handle message-passing for endpoints it owns.
   Set<Endpoint> _ownedEndpoints = new Set<Endpoint>();
 
-  /// Mapping from locally bound endpoints to the manager that owns
-  /// the peer endpoint.
-  Map<Endpoint, SendPort> _peerEndpointManagers = <Endpoint, SendPort>{};
+  /// Mapping from endpoints to the manager that owns the endpoint.
+  ///
+  /// Only contains mappings for targets of owned endpoints.
+  ///
+  /// If both ends of a pipe are locally owned, then both endpoints are in the
+  /// map.
+  Map<Endpoint, SendPort> _endpointManagers = <Endpoint, SendPort>{};
 
   /// A buffer for messages that have been sent to the peers.
   ///
@@ -185,11 +189,11 @@ class EndpointManager {
     Endpoint localEndpoint = peerEndpoint.peer;
     assert(_ownedEndpoints.contains(localEndpoint));
 
-    _peerEndpointManagers[peerEndpoint] = peerManager;
+    _endpointManagers[peerEndpoint] = peerManager;
 
-    List pendingMessages = _pendingMessages.remove(localEndpoint);
+    List pendingMessages = _pendingMessages.remove(peerEndpoint);
     pendingMessages ??= [];
-    pendingMessages.forEach(localEndpoint.sendToPeerManager);
+    pendingMessages.forEach(peerEndpoint.sendToManager);
 
     manager._notifyEndpointStatusChange(localEndpoint);
   }
@@ -209,9 +213,8 @@ class EndpointManager {
     return data != null && data.isNotEmpty;
   }
 
-  void _sendToPeerManager(Endpoint endpoint, msg) {
-    assert(endpoint.isBound);
-    SendPort peerManager = _peerEndpointManagers[endpoint];
+  void _sendToManager(Endpoint endpoint, msg) {
+    SendPort peerManager = _endpointManagers[endpoint];
     if (peerManager == null) {
       // The connection hasn't been established yet.
       // Queue the message.
@@ -224,7 +227,7 @@ class EndpointManager {
   int close(Endpoint endpoint) {
     if (endpoint.isClosed) return MojoResult.kInvalidArgument;
     _closedEndpoints.add(endpoint);
-    endpoint.sendToPeerManager([kClosed, endpoint.encode()]);
+    endpoint.peer.sendToManager([kClosed, endpoint.encode()]);
     return MojoResult.kOk;
   }
 
@@ -242,8 +245,8 @@ class EndpointManager {
     if (data != null && data.lengthInBytes != numBytes) {
       data = new ByteData.view(data.buffer, 0, numBytes);
     }
-    endpoint
-        .sendToPeerManager([kMessage, endpoint.encode(), data, handleTokens]);
+    endpoint.peer
+        .sendToManager([kMessage, endpoint.encode(), data, handleTokens]);
     return MojoResult.kOk;
   }
 
